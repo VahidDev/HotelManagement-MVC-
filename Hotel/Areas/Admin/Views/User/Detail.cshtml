@@ -60,6 +60,12 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-12">
+                    @if (Model.User.Comments.Count == 0)
+                    {
+                <span class="text-danger">No comments</span>
+                    }
+                    else
+                    {
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Comments</h3>
@@ -79,48 +85,48 @@
                                 <tbody>
                                     @foreach (Comment comment in Model.User.Comments)
                                     {
-                                    <tr>
-                                        <td>@comment.Room.Hotel.Name</td>
-                                        <td>@comment.Room.Name</td>
-                                        <td>@comment.Content</td>
-                                        <td>
-                                            <ul class="hotel-stars" style="list-style:none;">
-                                                @{
-                                                    int count = 0;
-                                                    float rating = comment.Rating.Name;
-                                                    bool isInteger = Int32.TryParse(rating.ToString()
-                                                        , out int result);
-                                                    int intRating = (int)rating;
-                                                }
-                                                @for (int i = 0; i < intRating; i++)
-                                                {
-                                                    count++;
-                                                    <li style="display:inline-block;"><i class="fas fa-star"></i></li>
-                                                }
-                                                @if (!isInteger)
-                                                {
-                                                    <li><i style="display:inline-block;" class="fas fa-star-half-alt"></i></li>
-                                                    count++;
-                                                }
-                                                @while (count != 5)
-                                                {
-                                                    count++;
-                                                    <li><i style="display:inline-block;" class="far fa-star"></i></li>
-                                                }
-                                                @{
-                                                    count = 0;
-                                                }
-                                            </ul>
-                                        </td>
-                                        <td>@comment.StartDate.ToString("dd.MM.yyyy")</td>
-                                    </tr>
-                                    }
+                                        <tr>
+                                            <td>@comment.Room.Hotel.Name</td>
+                                            <td>@comment.Room.Name</td>
+                                            <td>@comment.Content</td>
+                                            <td>
+                                                <ul class="hotel-stars" style="list-style:none;">
+                                                    @{
+                                                        int count = 0;
+                                                        float rating = comment.Rating.Name;
+                                                        bool isInteger = Int32.TryParse(rating.ToString()
+                                                            , out int result);
+                                                        int intRating = (int)rating;
+                                                    }
+                                                    @for (int i = 0; i < intRating; i++)
+                                                    {
+                                                        count++;
+                                                        <li style="display:inline-block;"><i class="fas fa-star"></i></li>
+                                                    }
+                                                    @if (!isInteger)
+                                                    {
+                                                        <li><i style="display:inline-block;" class="fas fa-star-half-alt"></i></li>
+                                                        count++;
+                                                    }
+                                                    @while (count != 5)
+                                                    {
+                                                        count++;
+                                                        <li><i style="display:inline-block;" class="far fa-star"></i></li>
+                                                    }
+                                                    @{
+                                                        count = 0;
+                                                    }
+                                                </ul>
+                                            </td>
+                                            <td>@comment.StartDate.ToString("dd.MM.yyyy")</td>
+                                        </tr>
+                                                        }
                                 </tbody>
                             </table>
                         </div>
                         <!-- /.card-body -->
-                    </div>
-                    <!-- /.card -->
+                    </div><!-- /.card -->
+                     }
                 </div>
             </div>
             <!-- /.row -->

@@ -62,7 +62,7 @@ namespace Hotel.Controllers
             {
                 foreach (IdentityError error in result.Errors)
                 {
-                    ModelState.AddModelError("",error.ToString());
+                    ModelState.AddModelError("",error.Description);
                 }
                 return View();
             }

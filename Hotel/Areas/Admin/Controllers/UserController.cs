@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Hotel.Constants.POCOConstants;
 using Hotel.DAL;
 using Hotel.Models;
+using Hotel.Utilities.ControllerUtilities.UserUtilities;
 using Hotel.ViewModels.AdminViewModels.UserViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -58,7 +59,40 @@ namespace Hotel.Areas.Admin.Controllers
         {
             User user = await _userManager.Users.FirstOrDefaultAsync(u=>u.Id==id&&!u.IsDeleted);
             if (user == null) return NotFound();
-            return View();
+            return View(new UserUpdateViewModel
+            {
+                Id=user.Id,
+                UserName=user.UserName,
+                Email=user.Email,
+            });
+        }
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public async Task<IActionResult>Update (UserUpdateViewModel model)
+        {
+            User user = await _userManager.Users
+                .FirstOrDefaultAsync(u => u.Id == model.Id && !u.IsDeleted);
+            if (user == null) return NotFound();
+            if (!ModelState.IsValid) return View(model);
+            if (_userManager.Users.Any(u => u.Email == model.Email && u.Id != user.Id))
+            {
+                ModelState.AddModelError(nameof(UserUpdateViewModel.Email),
+                    "Bu email-nan artiq bashqa bir istifadeci databazada var. " +
+                    "Xaish edirik bashqa email daxil edin");
+                return View(model);
+            }
+            UserUpdateMapper.MapUser(user, model);
+            IdentityResult result = await _userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                foreach (IdentityError error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+                return View(model);
+            }
+            await _dbContext.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
     }
 }
