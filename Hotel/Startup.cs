@@ -52,6 +52,7 @@ namespace Hotel
             app.UseAuthentication();
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseAuthorization();
             app.UseEndpoints(configure => {
                 configure.MapControllerRoute(
                  name: "areas",

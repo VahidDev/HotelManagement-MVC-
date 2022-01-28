@@ -163,3 +163,5 @@ C:\Users\User\OneDrive\Рабочий стол\Hotel\Hotel\obj\Debug\net5.0\Razo
 C:\Users\User\OneDrive\Рабочий стол\Hotel\Hotel\obj\Debug\net5.0\Razor\Views\Service\Index.cshtml.g.cs
 C:\Users\User\OneDrive\Рабочий стол\Hotel\Hotel\obj\Debug\net5.0\Razor\Views\Contact\Index.cshtml.g.cs
 C:\Users\User\OneDrive\Рабочий стол\Hotel\Hotel\obj\Debug\net5.0\Razor\Views\About\Index.cshtml.g.cs
+C:\Users\User\OneDrive\Рабочий стол\Hotel\Hotel\obj\Debug\net5.0\Razor\Areas\Admin\Views\User\Index.cshtml.g.cs
+C:\Users\User\OneDrive\Рабочий стол\Hotel\Hotel\obj\Debug\net5.0\Razor\Areas\Admin\Views\User\Detail.cshtml.g.cs

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Hotel.Models;
+﻿using Hotel.Models;
 using Hotel.Models.WebsiteSections;
 using Hotel.Models.WebsiteSections.SubWebsiteSections;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -10,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Hotel.DAL
 {
-    public class AppDbContext:IdentityDbContext
+    public class AppDbContext:IdentityDbContext<User>
     {
         public AppDbContext(DbContextOptions options) : base(options) { }
         public DbSet<Rating> Ratings { get; set; }
