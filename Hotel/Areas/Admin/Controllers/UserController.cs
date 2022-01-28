@@ -46,13 +46,19 @@ namespace Hotel.Areas.Admin.Controllers
         {
             User user = await _userManager.Users.Include(u => u.Comments)
             .ThenInclude(c=>c.Room).ThenInclude(r => r.Hotel).Include(u=>u.Comments)
-            .ThenInclude(c=>c.Rating).FirstOrDefaultAsync(u => u.Id == id);
+            .ThenInclude(c=>c.Rating).FirstOrDefaultAsync(u => u.Id == id &&!u.IsDeleted);
             if (user == null) return NotFound();
             return View(new UserDetailViewModel { 
             User= user,
             Reservation=await _dbContext.Reservations.Include(r=>r.Room).ThenInclude(r=>r.Hotel)
             .Where(r=>!r.IsDeleted&&r.User==user).FirstOrDefaultAsync(),
             });
+        }
+        public async Task<IActionResult> Update(string id)
+        {
+            User user = await _userManager.Users.FirstOrDefaultAsync(u=>u.Id==id&&!u.IsDeleted);
+            if (user == null) return NotFound();
+            return View();
         }
     }
 }
