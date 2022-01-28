@@ -1,4 +1,4 @@
-﻿@model List<User>
+﻿@model UserIndexViewModel
     <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -38,7 +38,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (User user in Model)
+                                    @foreach (User user in Model.Users)
                                     {
                                         <tr>
                                             <td>@user.Id</td>
