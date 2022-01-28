@@ -50,6 +50,39 @@ namespace Hotel.Areas.Admin.Controllers
             }
             return View(model);
         }
+        public async Task<IActionResult>Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult>Create(UserCreateViewModel model)
+        {
+            if (!ModelState.IsValid) return View();
+            if (_dbContext.Users.Any(u => !u.IsDeleted && u.Email == model.Email))
+            {
+                ModelState.AddModelError(nameof(UserCreateViewModel.Email),
+                     "Bu email-nan artiq bashqa bir istifadeci databazada var. " +
+                    "Xaish edirik bashqa email daxil edin");
+                return View();
+            }
+            User user = new()
+            {
+                Email = model.Email,
+                UserName = model.UserName
+            };
+            IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+            if (!result.Succeeded)
+            {
+                foreach (IdentityError error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+                return View();
+            }
+            await _userManager.AddToRoleAsync(user, DefaultRoleConstants.User);
+            return RedirectToAction(nameof(Index));
+        }
         public async Task<IActionResult> Detail(string id)
         {
             User user = await _userManager.Users.Include(u => u.Comments)
@@ -107,6 +140,18 @@ namespace Hotel.Areas.Admin.Controllers
             if (user == null) return false;
             user.IsDeleted = true;
             user.DeletedDate = DateTime.Now;
+            await _userManager.UpdateAsync(user);
+            await _dbContext.SaveChangesAsync();
+            return true;
+        }
+        public async Task<bool> Block(string id)
+        {
+            User user = await _userManager.Users.FirstOrDefaultAsync(u=>!u.IsDeleted&& u.Id==id);
+            if (user == null) return false;
+            user.LockoutEnabled = true;
+            user.LockoutEnd = DateTimeOffset.MaxValue;
+            user.IsBlocked = true;
+            await _userManager.UpdateSecurityStampAsync(user);
             await _userManager.UpdateAsync(user);
             await _dbContext.SaveChangesAsync();
             return true;

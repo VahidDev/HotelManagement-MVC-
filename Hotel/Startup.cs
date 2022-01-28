@@ -40,6 +40,8 @@ namespace Hotel
             })
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<AppDbContext>();
+            services.Configure<SecurityStampValidatorOptions>(options =>
+                 options.ValidationInterval = TimeSpan.Zero);
         }
         
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

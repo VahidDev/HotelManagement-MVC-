@@ -15,7 +15,8 @@ namespace Hotel.DAL.Seeding.POCOGenerators
             User adminUser = new User()
             {
                 UserName = DefaultUserConstants.AdminUserName,
-                Email = DefaultUserConstants.AdminEmail
+                Email = DefaultUserConstants.AdminEmail,
+                LockoutEnabled=false
             };
             await userManager.CreateAsync(adminUser, DefaultUserConstants.AdminPassword);
             await userManager.AddToRoleAsync(adminUser, DefaultRoleConstants.Admin);

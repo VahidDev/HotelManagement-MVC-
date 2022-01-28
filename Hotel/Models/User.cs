@@ -15,5 +15,6 @@ namespace Hotel.Models
         public string Image { get; set; }
         public bool IsHotelUser { get; set; } = false;
         public ICollection<Reservation> Reservations { get; set; }
+        public bool IsBlocked { get; set; } = false;
     }
 }

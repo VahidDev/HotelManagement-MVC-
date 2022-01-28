@@ -38,6 +38,11 @@ namespace Hotel.Controllers
                 ModelState.AddModelError("","Bele bir istifadechi databazada yoxdur");
                 return View();
             }
+            if (user.IsBlocked)
+            {
+                ModelState.AddModelError("", "Bu istifadeci bloklanibdir");
+                return View();
+            }
             await _signInManager.SignInAsync(user, false);
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
