@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Hotel.Models;
+using Hotel.Utilities.ControllerUtilities.UserUtilities;
+using Microsoft.AspNetCore.Identity;
 
 namespace Hotel.ViewModels.AdminViewModels.UserViewModels
 {
     public class UserIndexViewModel
     {
-        public ICollection<User> Users { get; set; }
-        public string AdminUserId { get; set; }
-        public string CurrentUserId { get; set; }
+        public ICollection<UserAndRole> UsersRoles { get; set; } = new List<UserAndRole>();
     }
 }

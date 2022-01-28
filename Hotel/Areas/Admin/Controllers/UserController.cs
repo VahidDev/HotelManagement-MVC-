@@ -37,11 +37,18 @@ namespace Hotel.Areas.Admin.Controllers
             // we need this to exclude admin user because we won't show admin user in the user list
             IdentityUserRole<string> adminAndRole = await _dbContext.UserRoles
              .Where(ur => ur.RoleId == adminRole.Id).FirstOrDefaultAsync();
-            return View(new UserIndexViewModel {
-            Users= await _userManager.Users
-            .Where(u => !u.IsDeleted&&u.Id!=adminAndRole.UserId&&u.Id!=currentUserId)
-            .ToListAsync(),
-            });
+            ICollection<User> users = await _userManager.Users
+          .Where(u => !u.IsDeleted && u.Id != adminAndRole.UserId && u.Id != currentUserId)
+          .ToListAsync();
+            UserIndexViewModel model = new UserIndexViewModel();
+            foreach (User user in users)
+            {
+                model.UsersRoles.Add(new UserAndRole { 
+                User=user,
+                RolesNames=await _userManager.GetRolesAsync(user),
+                });
+            }
+            return View(model);
         }
         public async Task<IActionResult> Detail(string id)
         {
@@ -51,8 +58,8 @@ namespace Hotel.Areas.Admin.Controllers
             if (user == null) return NotFound();
             return View(new UserDetailViewModel { 
             User= user,
-            Reservation=await _dbContext.Reservations.Include(r=>r.Room).ThenInclude(r=>r.Hotel)
-            .Where(r=>!r.IsDeleted&&r.User==user).FirstOrDefaultAsync(),
+            Reservations=await _dbContext.Reservations.Include(r=>r.Room).ThenInclude(r=>r.Hotel)
+            .Where(r=>!r.IsDeleted&&r.User==user).ToListAsync(),
             });
         }
         public async Task<IActionResult> Update(string id)
@@ -93,6 +100,16 @@ namespace Hotel.Areas.Admin.Controllers
             }
             await _dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+        public async Task<bool> Delete(string id)
+        {
+            User user = await _userManager.FindByIdAsync(id);
+            if (user == null) return false;
+            user.IsDeleted = true;
+            user.DeletedDate = DateTime.Now;
+            await _userManager.UpdateAsync(user);
+            await _dbContext.SaveChangesAsync();
+            return true;
         }
     }
 }

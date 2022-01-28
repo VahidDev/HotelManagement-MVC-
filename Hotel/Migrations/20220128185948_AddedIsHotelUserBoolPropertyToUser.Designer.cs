@@ -4,14 +4,16 @@ using Hotel.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Hotel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220128185948_AddedIsHotelUserBoolPropertyToUser")]
+    partial class AddedIsHotelUserBoolPropertyToUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -810,7 +812,7 @@ namespace Hotel.Migrations
                         .HasForeignKey("RoomId");
 
                     b.HasOne("Hotel.Models.User", "User")
-                        .WithMany("Reservations")
+                        .WithMany()
                         .HasForeignKey("UserId");
 
                     b.Navigation("Room");
@@ -911,8 +913,6 @@ namespace Hotel.Migrations
             modelBuilder.Entity("Hotel.Models.User", b =>
                 {
                     b.Navigation("Comments");
-
-                    b.Navigation("Reservations");
                 });
 #pragma warning restore 612, 618
         }

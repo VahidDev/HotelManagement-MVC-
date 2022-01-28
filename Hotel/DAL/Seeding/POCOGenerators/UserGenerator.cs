@@ -19,18 +19,13 @@ namespace Hotel.DAL.Seeding.POCOGenerators
             };
             await userManager.CreateAsync(adminUser, DefaultUserConstants.AdminPassword);
             await userManager.AddToRoleAsync(adminUser, DefaultRoleConstants.Admin);
-            User hotelUser = new User()
-            {
-                UserName = DefaultUserConstants.HotelUserName,
-                Email = DefaultUserConstants.HotelEmail
-            };
-            await userManager.CreateAsync(hotelUser, DefaultUserConstants.HotelPassword);
-            await userManager.AddToRoleAsync(hotelUser, DefaultRoleConstants.Hotel);
+
             User hotelUserA = new User()
             {
                 UserName = DefaultUserConstants.HotelUserNameA,
                 Email = DefaultUserConstants.HotelEmailA,
-                Image = DefaultUserConstants.HotelUserAImage
+                Image = DefaultUserConstants.HotelUserAImage,
+                IsHotelUser=true
             };
             await userManager.CreateAsync(hotelUserA, DefaultUserConstants.HotelPasswordA);
             await userManager.AddToRoleAsync(hotelUserA, DefaultRoleConstants.Hotel);
@@ -39,7 +34,8 @@ namespace Hotel.DAL.Seeding.POCOGenerators
             {
                 UserName = DefaultUserConstants.HotelUserNameB,
                 Email = DefaultUserConstants.HotelEmailB,
-                Image = DefaultUserConstants.HotelUserBImage
+                Image = DefaultUserConstants.HotelUserBImage,
+                IsHotelUser = true
             };
             await userManager.CreateAsync(hotelUserB, DefaultUserConstants.HotelPasswordB);
             await userManager.AddToRoleAsync(hotelUserB, DefaultRoleConstants.Hotel);

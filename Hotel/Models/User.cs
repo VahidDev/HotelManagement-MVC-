@@ -13,5 +13,7 @@ namespace Hotel.Models
         public bool IsDeleted { get; set; } = false;
         public ICollection<Comment> Comments { get; set; }
         public string Image { get; set; }
+        public bool IsHotelUser { get; set; } = false;
+        public ICollection<Reservation> Reservations { get; set; }
     }
 }
