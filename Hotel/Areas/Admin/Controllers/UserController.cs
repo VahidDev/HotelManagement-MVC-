@@ -156,5 +156,16 @@ namespace Hotel.Areas.Admin.Controllers
             await _dbContext.SaveChangesAsync();
             return true;
         }
+        public async Task<bool> UnBlock(string id)
+        {
+            User user = await _userManager.Users.FirstOrDefaultAsync(u => !u.IsDeleted && u.Id == id);
+            if (user == null) return false;
+            user.LockoutEnd = DateTimeOffset.Now;
+            user.IsBlocked = false;
+            await _userManager.UpdateAsync(user);
+            await _userManager.UpdateSecurityStampAsync(user);
+            await _dbContext.SaveChangesAsync();
+            return true;
+        }
     }
 }

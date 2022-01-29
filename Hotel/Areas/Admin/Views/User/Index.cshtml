@@ -64,15 +64,15 @@
                                                 </button>
                                                 @if (userAndRole.User.IsBlocked)
                                                 {
-                                                    <button type="button" class="btn btn-dark unblock">
+                                                    <button type="button" class="btn btn-dark unBlockMobalBtn">
                                                         Unblock
                                                     </button>
                                                 }
                                                 else
                                                 {
-                                                <button type="button" class="btn btn-dark BlockModalBtn">
-                                                    Block
-                                                </button>
+                                                    <button type="button" class="btn btn-dark BlockModalBtn">
+                                                        Block
+                                                    </button>
                                                 }
                                             </td>
                                             @if (!userAndRole.User.IsHotelUser)
@@ -84,7 +84,7 @@
                                             else
                                             {
                                                 <td></td>
-}
+                                            }
                                         </tr>
                                     }
                                 </tbody>
@@ -125,7 +125,7 @@
     </div>
 </div>
 <!--Block modal-->
-<!-- Real Button trigger modal -->
+<!-- Real Button the trigger block modal -->
 <input type="hidden" id="BlockModalActivate" data-bs-toggle="modal" data-bs-target="#exampleModalBlock">
 <!-- Modal -->
 <div class="modal fade" id="exampleModalBlock" tabindex="-1" aria-labelledby="exampleModalLabelBlock" aria-hidden="true">
@@ -142,6 +142,28 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="blockUser">Block</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Unblock modal-->
+<!-- Real Button trigger the unblock modal -->
+<input type="hidden" id="UnBlockModalActivate" data-bs-toggle="modal" data-bs-target="#exampleModalUnBlock">
+<!--Unblock Modal -->
+<div class="modal fade" id="exampleModalUnBlock" tabindex="-1" aria-labelledby="exampleModalLabelUnBlock" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabelUnBlock">Unblock User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to unblock this user? User: <span class="text-primary" id="userInfoUnBlock"></span>
+                <input type="hidden" id="userIdUnBlock" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="unBlockUser">Unblock</button>
             </div>
         </div>
     </div>
@@ -180,7 +202,33 @@
                     url: "User/Block/" + $("#userIdBlock").val(),
                     success: function (res) {
                         if (res) {
-                            $(".userToBlock").removeClass("userToBlock").addClass("unblock").text("Unblock");
+                            let el = $(".userToBlock")[0]
+                            $(el).removeClass("userToBlock").removeClass("BlockModalBtn")
+                                .addClass("unBlockMobalBtn").text("Unblock");
+                            el.removeEventListener('click', GetUserIdBlock);
+                            el.addEventListener("click", GetUserIdUnBlock);
+                        } else {
+                            window.location.replace(window.location.href + "NotFound");
+                        }
+                    }
+                });
+            });
+            // For UnBlocking
+            let unBlockModalBtns = document.querySelectorAll(".unBlockMobalBtn");
+            for (let unBlockmodalBtn of unBlockModalBtns) {
+                unBlockmodalBtn.addEventListener("click", GetUserIdUnBlock);
+            }
+            jQuery(document).on("click", "#unBlockUser", function (e) {
+                $.ajax({
+                    method: "Post",
+                    url: "User/UnBlock/" + $("#userIdUnBlock").val(),
+                    success: function (res) {
+                        if (res) {
+                            let el = $(".userToUnBlock")[0];
+                            $(el).removeClass("userToUnBlock").removeClass("unBlockMobalBtn")
+                             .addClass("BlockModalBtn").text("Block")
+                            el.removeEventListener('click', GetUserIdUnBlock);
+                             el.addEventListener("click", GetUserIdBlock);
                         } else {
                             window.location.replace(window.location.href + "NotFound");
                         }
@@ -201,10 +249,19 @@
             let btn = e.target;
             let userName = btn.previousElementSibling.previousElementSibling.value;
             document.querySelector("#userIdBlock").value = btn.previousElementSibling.
-            previousElementSibling.previousElementSibling.value;
+                previousElementSibling.previousElementSibling.value;
             document.getElementById("userInfoBlock").textContent = userName;
             document.querySelector("#BlockModalActivate").click();
             btn.classList.add("userToBlock")
+        }
+        function GetUserIdUnBlock(e) {
+            let btn = e.target;
+            let userName = btn.previousElementSibling.previousElementSibling.value;
+            document.querySelector("#userIdUnBlock").value = btn.previousElementSibling
+                .previousElementSibling.previousElementSibling.value;
+            document.getElementById("userInfoUnBlock").textContent = userName;
+            document.querySelector("#UnBlockModalActivate").click();
+            btn.classList.add("userToUnBlock")
         }
     </script>
 
