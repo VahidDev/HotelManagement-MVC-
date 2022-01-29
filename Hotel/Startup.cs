@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using Hotel.Constants;
 using Hotel.DAL;
 using Hotel.DAL.Seeding;
 using Hotel.Models;
@@ -16,10 +18,11 @@ namespace Hotel
     public class Startup
     {
         private readonly IConfiguration _config;
-
-        public Startup(IConfiguration config)
+        private readonly IWebHostEnvironment _env;
+        public Startup(IConfiguration config, IWebHostEnvironment env)
         {
             _config = config;
+            _env = env;
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -42,6 +45,7 @@ namespace Hotel
                 .AddEntityFrameworkStores<AppDbContext>();
             services.Configure<SecurityStampValidatorOptions>(options =>
                  options.ValidationInterval = TimeSpan.Zero);
+            FileNameConstants.HotelImage = Path.Combine(_env.WebRootPath, "img","HOTEL");
         }
         
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

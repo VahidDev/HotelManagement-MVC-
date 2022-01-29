@@ -78,7 +78,7 @@
                                             @if (!userAndRole.User.IsHotelUser)
                                             {
                                                 <td>
-                                                    <a class="btn btn-primary" asp-route-id="@userAndRole.User.Id" asp-action="MakeHotelUser">Make Hotel User</a>
+                                                    <a class="btn btn-primary" asp-route-id="@userAndRole.User.Id" asp-controller="AdminHotel" asp-action="CreateHotel">Make Hotel User</a>
                                                 </td>
                                             }
                                             else
@@ -183,8 +183,15 @@
                     method: "Post",
                     url: "User/Delete/" + $("#userId").val(),
                     success: function (res) {
-                        if (res) {
+                        if (res==="Success") {
                             $(".elToDelete").detach()
+                        } else if (res === "Hotel Error") {
+                            $(".elToDelete").append(`<span class="text-danger error">
+                    First you need to delete the hotel of this user
+                               </span>`).removeClass("elToDelete");
+                            setTimeout(function () {
+                                $(".error").detach();
+                            }, 3 * 1000);
                         } else {
                             window.location.replace(window.location.href + "NotFound");
                         }

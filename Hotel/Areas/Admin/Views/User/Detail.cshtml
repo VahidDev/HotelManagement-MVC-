@@ -38,7 +38,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr class="userErrorInfoEl">
                                         <td>@Model.User.Id</td>
                                         <td>@Model.User.UserName</td>
                                         <td>@Model.User.Email</td>
@@ -65,7 +65,7 @@
                                         @if (!Model.User.IsHotelUser)
                                         {
                                             <td>
-                                                <a class="btn btn-primary" asp-route-id="@Model.User.Id" asp-action="MakeHotelUser">Make Hotel User</a>
+                                                <a class="btn btn-primary" asp-route-id="@Model.User.Id" asp-controller="AdminHotel" asp-action="CreateHotel">Make Hotel User</a>
                                             </td>
                                         }
                                     </tr>
@@ -210,7 +210,7 @@
             </div>
             <input type="hidden" value="@Model.User.Id" id="userId" />
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary deleteCancel" data-bs-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-primary" id="deleteUser">Delete</button>
             </div>
         </div>
@@ -270,8 +270,16 @@
                     method: "Post",
                     url: "/Admin/User/Delete/" + $("#userId").val(),
                     success: function (res) {
-                        if (res) {
+                        if (res==="Success") {
                             window.location.replace("/Admin/User");
+                        } else if (res === "Hotel Error") {
+                            document.querySelector(".deleteCancel").click();
+                            $(".userErrorInfoEl").append(`<span class="text-danger error">
+                    First you need to delete the hotel of this user
+                               </span>`);
+                            setTimeout(function () {
+                                $(".error").detach();
+                            }, 3 * 1000);
                         } else {
                             window.location.replace(window.location.href + "NotFound");
                         }

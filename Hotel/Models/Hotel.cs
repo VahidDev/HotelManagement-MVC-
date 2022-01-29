@@ -11,7 +11,7 @@ namespace Hotel.Models
         public Rating Rating { get; set; }
         public string Description { get; set; }
         public string Image { get; set; }
-        public int Popularity { get; set; }
+        public int Popularity { get; set; } = 0;
         public string Address { get; set; }
         public string City { get; set; }
         public int RoomCount { get; set; } = 0;

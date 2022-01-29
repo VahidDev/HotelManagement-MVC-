@@ -16,8 +16,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Hotel.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = nameof(Constants.POCOConstants.DefaultRoleConstants.Admin) + ","
-       + nameof(Constants.POCOConstants.DefaultRoleConstants.Hotel))]
+    [Authorize(Roles = nameof(DefaultRoleConstants.Admin))]
     public class UserController : Controller
     {
         private readonly AppDbContext _dbContext;
@@ -134,15 +133,23 @@ namespace Hotel.Areas.Admin.Controllers
             await _dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        public async Task<bool> Delete(string id)
+        public async Task<string> Delete(string id)
         {
-            User user = await _userManager.FindByIdAsync(id);
-            if (user == null) return false;
+            User user = await _userManager.Users.FirstOrDefaultAsync(u=>u.Id==id&&!u.IsDeleted);
+            if (user == null) return "Not Found";
+            if (user.IsHotelUser)
+            {
+                Models.Hotel hotel = await _dbContext.Hotels.FirstOrDefaultAsync(h => h.User == user);
+                if (!hotel.IsDeleted)
+                {
+                    return "Hotel Error";
+                }
+            }
             user.IsDeleted = true;
             user.DeletedDate = DateTime.Now;
             await _userManager.UpdateAsync(user);
             await _dbContext.SaveChangesAsync();
-            return true;
+            return "Success";
         }
         public async Task<bool> Block(string id)
         {

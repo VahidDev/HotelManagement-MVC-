@@ -1,0 +1,102 @@
+﻿@model AdminHotelCreateViewModel
+    <!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Create a hotel</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-action="Index" asp-controller="User">User</a></li>
+                        <li class="breadcrumb-item active">Create</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-6">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Create form</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form method="post" asp-action="CreateHotel" enctype="multipart/form-data">
+                            <div class="card-body">
+                                <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                                <div class="form-group">
+                                    <label asp-for="Name">Hotel Name</label>
+                                    <input type="text" asp-for="Name" class="form-control" placeholder="Enter hotel name">
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="City">City</label>
+                                    <input type="text" asp-for="City" class="form-control" placeholder="Enter city">
+                                    <span asp-validation-for="City" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Address">Address</label>
+                                    <input type="text" asp-for="Address" class="form-control" placeholder="Enter address">
+                                    <span asp-validation-for="Address" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Description">Description</label>
+                                    <input type="text" asp-for="Description" class="form-control" placeholder="Enter description">
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="ReceptionPhone">Reception Phone</label>
+                                    <input type="tel" asp-for="ReceptionPhone" class="form-control" placeholder="Enter Reception Phone">
+                                    <span asp-validation-for="ReceptionPhone" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="RestaurantPhone">Restaurant Phone</label>
+                                    <input type="tel" asp-for="RestaurantPhone" class="form-control" placeholder="Enter Restaurant Phone">
+                                    <span asp-validation-for="RestaurantPhone" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="ShuttleServicePhone">Shuttle Service Phone</label>
+                                    <input type="tel" asp-for="ShuttleServicePhone" class="form-control" placeholder="Shuttle Service Phone">
+                                    <span asp-validation-for="ShuttleServicePhone" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <select asp-for="RatingId" class="form-control"
+                                            asp-items="new SelectList(Model.Ratings,nameof(Rating.Id),nameof(Rating.Name))">
+                                        <option selected disabled>--Rating sechin--</option>
+                                    </select>
+                                    <span asp-validation-for="RatingId" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="file" accept="image/*" asp-for="ImageFile" class="form-control" placeholder="Upload file">
+                                    <span asp-validation-for="ImageFile" class="text-danger"></span>
+                                </div>
+                                <input type="hidden" value="@Model.UserId" asp-for="UserId"/>
+                            </div>
+                            <!-- /.card-body -->
+
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <a type="button" class="btn btn-danger" 
+                                   asp-action="Index" asp-controller="User">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+@*@section Scripts{
+    <partial name="_ValidationPartial">
+}*@
