@@ -9,7 +9,7 @@ namespace Hotel.Utilities.FileUtilities
     {
         public async static Task CreateAsync(this IFormFile file,Guid guid,string folder)
         {
-            string path = PathGenerator.GenerateFullPath(folder, file.FileName, guid);
+            string path = Path.Combine(folder, guid+file.FileName);
             using FileStream stream = new(path, FileMode.Create);
             await file.CopyToAsync(stream);
         }

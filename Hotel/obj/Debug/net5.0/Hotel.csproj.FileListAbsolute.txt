@@ -169,3 +169,6 @@ C:\Users\User\OneDrive\Рабочий стол\Hotel\Hotel\obj\Debug\net5.0\Razo
 C:\Users\User\OneDrive\Рабочий стол\Hotel\Hotel\obj\Debug\net5.0\Razor\Areas\Admin\Views\Shared\_ValidationPartial.cshtml.g.cs
 C:\Users\User\OneDrive\Рабочий стол\Hotel\Hotel\obj\Debug\net5.0\Razor\Areas\Admin\Views\User\Create.cshtml.g.cs
 C:\Users\User\OneDrive\Рабочий стол\Hotel\Hotel\obj\Debug\net5.0\Razor\Areas\Admin\Views\AdminHotel\CreateHotel.cshtml.g.cs
+C:\Users\User\OneDrive\Рабочий стол\Hotel\Hotel\obj\Debug\net5.0\Razor\Areas\Admin\Views\AdminHotel\Index.cshtml.g.cs
+C:\Users\User\OneDrive\Рабочий стол\Hotel\Hotel\obj\Debug\net5.0\Razor\Areas\Admin\Views\AdminHotel\Update.cshtml.g.cs
+C:\Users\User\OneDrive\Рабочий стол\Hotel\Hotel\obj\Debug\net5.0\Razor\Areas\Admin\Views\AdminHotel\Detail.cshtml.g.cs
