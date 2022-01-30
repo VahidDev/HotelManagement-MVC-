@@ -42,27 +42,34 @@ using Hotel.ViewModels.AdminViewModels.AdminRoomViewModels;
 #nullable disable
 #nullable restore
 #line 6 "C:\Users\User\OneDrive\Рабочий стол\Hotel\Hotel\Areas\Admin\Views\_ViewImports.cshtml"
-using Hotel.Constants.POCOConstants;
+using Hotel.ViewModels.AdminViewModels.AdminReservationViewModels;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 7 "C:\Users\User\OneDrive\Рабочий стол\Hotel\Hotel\Areas\Admin\Views\_ViewImports.cshtml"
-using Hotel.Utilities.ControllerUtilities.UserUtilities;
+using Hotel.Constants.POCOConstants;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 8 "C:\Users\User\OneDrive\Рабочий стол\Hotel\Hotel\Areas\Admin\Views\_ViewImports.cshtml"
+using Hotel.Utilities.ControllerUtilities.UserUtilities;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 9 "C:\Users\User\OneDrive\Рабочий стол\Hotel\Hotel\Areas\Admin\Views\_ViewImports.cshtml"
 using Hotel.Utilities.ControllerUtilities.AdminHotelUtilities;
 
 #line default
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"e8f4e74c9da326aba5886784542988dc0dd980b4", @"/Areas/Admin/Views/AdminHotel/Detail.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"e92bf17a1bfe3ea86eaf186213021453b77336fb", @"/Areas/Admin/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"438bd65c14aa9bfddb220e488122cb40c12ad58f", @"/Areas/Admin/Views/_ViewImports.cshtml")]
     public class Areas_Admin_Views_AdminHotel_Detail : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<AdminHotelDetailViewModel>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-controller", "AdminHotel", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -113,7 +120,7 @@ using Hotel.Utilities.ControllerUtilities.AdminHotelUtilities;
                 <div class=""col-sm-6"">
                     <ol class=""breadcrumb float-sm-right"">
                         <li class=""breadcrumb-item"">");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e8f4e74c9da326aba5886784542988dc0dd980b48391", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e8f4e74c9da326aba5886784542988dc0dd980b48625", async() => {
                 WriteLiteral("Hotel");
             }
             );
@@ -167,7 +174,7 @@ using Hotel.Utilities.ControllerUtilities.AdminHotelUtilities;
                                 <tbody>
                                     <tr class=""hotelInfoEl"">
                                         <td>");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "e8f4e74c9da326aba5886784542988dc0dd980b411394", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "e8f4e74c9da326aba5886784542988dc0dd980b411628", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -320,7 +327,7 @@ AddHtmlAttributeValue("", 2236, Model.Hotel.Image, 2236, 18, false);
 #line hidden
 #nullable disable
             WriteLiteral("</td>\r\n                                        <td>\r\n                                            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e8f4e74c9da326aba5886784542988dc0dd980b418817", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e8f4e74c9da326aba5886784542988dc0dd980b419051", async() => {
                 WriteLiteral("Update");
             }
             );
@@ -372,7 +379,7 @@ WriteAttributeValue("", 5038, Model.Hotel.Name, 5038, 17, false);
 #nullable disable
             EndWriteAttribute();
             WriteLiteral(" />\r\n                                            <!--Fake Button trigger modal -->\r\n                                            <button type=\"button\" class=\"btn btn-danger modalBtn\">Delete</button>\r\n                                            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e8f4e74c9da326aba5886784542988dc0dd980b422254", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e8f4e74c9da326aba5886784542988dc0dd980b422488", async() => {
                 WriteLiteral("Create Room");
             }
             );
@@ -454,7 +461,7 @@ WriteAttributeValue("", 5038, Model.Hotel.Name, 5038, 17, false);
 #line hidden
 #nullable disable
             WriteLiteral("                                            <tr class=\"roomInfoEl\">\r\n                                                <td>");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "e8f4e74c9da326aba5886784542988dc0dd980b426955", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "e8f4e74c9da326aba5886784542988dc0dd980b427189", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -518,7 +525,7 @@ AddHtmlAttributeValue("", 7211, roomImage.Image.Name, 7211, 21, false);
 #line hidden
 #nullable disable
             WriteLiteral("</td>\r\n                                                <td>\r\n                                                    ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e8f4e74c9da326aba5886784542988dc0dd980b430502", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e8f4e74c9da326aba5886784542988dc0dd980b430736", async() => {
                 WriteLiteral("Detail");
             }
             );
@@ -552,7 +559,7 @@ AddHtmlAttributeValue("", 7211, roomImage.Image.Name, 7211, 21, false);
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n                                                    ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e8f4e74c9da326aba5886784542988dc0dd980b433057", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e8f4e74c9da326aba5886784542988dc0dd980b433291", async() => {
                 WriteLiteral("Update");
             }
             );
@@ -700,7 +707,7 @@ WriteAttributeValue("", 8294, roomImage.Room.Name, 8294, 20, false);
 ");
             DefineSection("Scripts", async() => {
                 WriteLiteral("\r\n    <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM\" crossorigin=\"anonymous\"></script>\r\n    ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e8f4e74c9da326aba5886784542988dc0dd980b440929", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e8f4e74c9da326aba5886784542988dc0dd980b441163", async() => {
                     WriteLiteral(@"
         ""use strict"";
         window.onload = () => {

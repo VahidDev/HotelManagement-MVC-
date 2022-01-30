@@ -11,7 +11,11 @@ namespace Hotel.Utilities.ControllerUtilities
     {
         public static bool IsValid(DateTime startDate,DateTime endDate)
         {
-            if (startDate < endDate) return true;
+            if (DateTime.Compare(DateTime.Now, startDate) < 0)
+            {
+                int result = DateTime.Compare(startDate, endDate);
+                if (result < 0) return true;
+            }
             return false;
         }
         public static bool IsConflicted(Room room, DateTime startDate, DateTime endDate)

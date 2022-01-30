@@ -1,0 +1,340 @@
+﻿@model AdminRoomDetailViewModel
+    <!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" id="myModal">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Room Details</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-controller="AdminHotel" asp-action="Index">Hotels</a></li>
+                        <li class="breadcrumb-item"><a asp-controller="AdminHotel" asp-action="Detail" asp-route-id="@Model.HotelId">@Model.HotelName</a></li>
+                        <li class="breadcrumb-item active">Room Details</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Room Details</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example2" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Hotel Name</th>
+                                        <th>Title</th>
+                                        <th>Description</th>
+                                        <th>PRice</th>
+                                        <th>Size</th>
+                                        <th>Type</th>
+                                        <th>Reservation Count</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="roomInfoEl">
+                                        <td><img class="d-block w-100" src="~/img/rooms/@Model.MainImage" /></td>
+                                        <td class="text-bold">@Model.Room.Name</td>
+                                        <td>@Model.HotelName</td>
+                                        <td>@Model.Room.Title</td>
+                                        <td>@Model.Room.Description</td>
+                                        <td>$@Model.Room.Price</td>
+                                        <td>@Model.Room.Size</td>
+                                        <td>@Model.Room.Type</td>
+                                        <td>@Model.Room.ReservationCount</td>
+                                        <td>
+                                            <a class="btn btn-primary" asp-route-id="@Model.Room.Id" asp-action="Update">Update</a>
+                                            <input type="hidden" value="@Model.Room.Id" />
+                                            <input type="hidden" value="@Model.Room.Name" />
+                                            <!--Fake Button trigger modal -->
+                                            <button type="button" class="btn btn-danger RoomModalBtn">Delete</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                @if (Model.Reservations.Count != 0)
+                {
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Reservations</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="example2" class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>User Name</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Adult Count</th>
+                                            <th>Child Count</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (Reservation reservation in Model.Reservations)
+                                        {
+                                            <tr class="reservationInfoEl">
+                                                <td class="text-bold">@reservation.User.UserName</td>
+                                                <td>@reservation.StartDate.ToString("dd/MM/yyyy")</td>
+                                                <td>@reservation.EndDate.ToString("dd/MM/yyyy")</td>
+                                                <td class="text-bold">@reservation.AdultCount</td>
+                                                <td class="text-bold">@reservation.ChildCount</td>
+                                                <td>
+                                                    <a class="btn btn-primary" asp-action="Update"
+                                                       asp-controller="AdminReservation" asp-route-id="@reservation.Id"> Update</a>
+                                                    <input type="hidden" value="@reservation.Id" />
+                                                    <input type="hidden" value="@reservation.User.UserName" />
+                                                    <!--Fake Button trigger modal -->
+                                                    <button type="button" class="btn btn-danger reservationModalBtn">Cancel</button>
+                                                </td>
+                                            </tr>
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div><!-- /.col -->
+                }
+                else
+                {
+                    <div class="text-danger">This room has no reservations</div>
+                }
+                <!-- /.col -->
+                @if (Model.Comments.Count > 0)
+                {
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Comments</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="example2" class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>FullName</th>
+                                            <th>Content</th>
+                                            <th>Added date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (Comment comment in Model.Comments)
+                                        {
+                                            <tr class="commentInfoEl">
+                                                <td><img class="d-block w-25" src="~/img/faces/3.jpg" /></td>
+                                                <td class="text-bold">@comment.FullName</td>
+                                                <td class="text-primary">@comment.Content</td>
+                                                <td>@comment.StartDate.ToString("dd/MM/yyyy")</td>
+                                                <td>
+                                                    <input type="hidden" value="@comment.Id" />
+                                                    <input type="hidden" value="@comment.FullName" />
+                                                    <!--Fake Button trigger modal -->
+                                                    <button type="button" class="btn btn-danger commentModalBtn">Delete</button>
+                                                </td>
+                                            </tr>
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div><!-- /.col -->
+                }
+                else
+                {
+                    <div class="text-danger">This room has no comments</div>
+                }
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!--Room Delete modal-->
+<!-- Real Button trigger modal -->
+<input type="hidden" id="RoomModalActivate" data-bs-toggle="modal" data-bs-target="#exampleModal">
+<!--Hotel delete Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Room</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this room? Room: <span class="text-primary" id="roomInfo"></span>
+                <input type="hidden" id="roomId" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="deleteRoom">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Reservation Delete modal-->
+<!-- Real Button trigger modal -->
+<input type="hidden" id="reservationModalActivate" data-bs-toggle="modal" data-bs-target="#exampleModalReservion">
+<!--Room delete Modal -->
+<div class="modal fade" id="exampleModalReservion" tabindex="-1" aria-labelledby="exampleModalLabelReservation" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabelReservation">Delete Reservation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to cancel this reservation? Room: <span class="text-primary" id="reservationInfo"></span>
+                <input type="hidden" id="reservationId" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="deleteReservation">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Comment Delete modal-->
+<!-- Real Button trigger modal -->
+<input type="hidden" id="commentModalActivate" data-bs-toggle="modal" data-bs-target="#exampleModalComment">
+<!--Room delete Modal -->
+<div class="modal fade" id="exampleModalComment" tabindex="-1" aria-labelledby="exampleModalLabelComment" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabelComment">Delete Comment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this comment? This comment was sent by: <span class="text-primary" id="commentInfo"></span>
+                <input type="hidden" id="commentId" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="deleteComment">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script asp-append-version="true">
+        "use strict";
+        window.onload = () => {
+            // For Deleting Room
+            let roomModalBtn = document.querySelector(".RoomModalBtn");
+            roomModalBtn.addEventListener("click", GetUserId);
+            jQuery(document).on("click", "#deleteRoom", function (e) {
+                $.ajax({
+                    method: "Post",
+                    url: "https://localhost:44340/Admin/AdminRoom/Delete/" + $("#roomId").val(),
+                    success: function (res) {
+                        if (res === "Success") {
+                            $(".elToDelete").detach()
+                        } else if (res === "Reservation Error") {
+                            $(".elToDelete").append(`<span class="text-danger error">
+                            First you need to delete the reservations of this hotel
+                                       </span>`).removeClass("elToDelete");
+                            setTimeout(function () {
+                                $(".error").detach();
+                            }, 3 * 1000);
+                        } else {
+                            window.location.replace(window.location.href + "NotFound");
+                        }
+                    }
+                });
+            });
+            // For Deleting Reservtion
+            let reservationModalBtns = document.querySelectorAll(".reservationModalBtn");
+            for (let reservationModalBtn of reservationModalBtns) {
+                reservationModalBtn.addEventListener("click", GetReservationUserId);
+            }
+            jQuery(document).on("click", "#deleteReservation", function (e) {
+                $.ajax({
+                    method: "Post",
+                    url: "https://localhost:44340/Admin/AdminReservation/Delete/" + $("#reservationId").val(),
+                    success: function (res) {
+                        if (res === "Success") {
+                            $(".elToDelete").detach()
+                        } else {
+                            window.location.replace(window.location.href + "NotFound");
+                        }
+                    }
+                });
+            });
+            // For Deleting Comment
+            let commentModalBtns = document.querySelectorAll(".commentModalBtn");
+            for (let commentModalBtn of commentModalBtns) {
+                commentModalBtn.addEventListener("click", GetCommentUserId);
+            }
+            jQuery(document).on("click", "#deleteComment", function (e) {
+                $.ajax({
+                    method: "Post",
+                    url: "https://localhost:44340/Admin/AdminRoom/DeleteComment/" + $("#commentId").val(),
+                    success: function (res) {
+                        if (res === "Success") {
+                            $(".elToDelete").detach()
+                        } else {
+                            window.location.replace(window.location.href + "NotFound");
+                        }
+                    }
+                });
+            });
+        }
+        function GetUserId(e) {
+            let btn = e.target;
+            let RoomName = btn.previousElementSibling.value;
+            document.querySelector("#roomId").value = btn.previousElementSibling
+                .previousElementSibling.value;
+            document.getElementById("roomInfo").textContent = RoomName;
+            document.querySelector("#RoomModalActivate").click();
+            btn.closest(".roomInfoEl").classList.add("elToDelete");
+        } 
+        function GetReservationUserId(e) {
+            let btn = e.target;
+            let reservationName = btn.previousElementSibling.value;
+            document.querySelector("#reservationId").value = btn.previousElementSibling
+                .previousElementSibling.value;
+            document.getElementById("reservationInfo").textContent = reservationName;
+            document.querySelector("#reservationModalActivate").click();
+            btn.closest(".reservationInfoEl").classList.add("elToDelete");
+        }
+        function GetCommentUserId(e) {
+            let btn = e.target;
+            let reservationName = btn.previousElementSibling.value;
+            document.querySelector("#commentId").value = btn.previousElementSibling
+                .previousElementSibling.value;
+            document.getElementById("commentInfo").textContent = reservationName;
+            document.querySelector("#commentModalActivate").click();
+            btn.closest(".commentInfoEl").classList.add("elToDelete");
+        }
+    </script>
+
+}

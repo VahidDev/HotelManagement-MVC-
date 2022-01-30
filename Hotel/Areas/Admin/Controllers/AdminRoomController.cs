@@ -52,6 +52,7 @@ namespace Hotel.Areas.Admin.Controllers
             }
             room.IsDeleted = true;
             room.Hotel.RoomCount--;
+            room.DeletedDate = DateTime.Now;
             _dbContext.Hotels.Update(room.Hotel);
             _dbContext.Rooms.Update(room);
             await _dbContext.SaveChangesAsync();
@@ -65,6 +66,35 @@ namespace Hotel.Areas.Admin.Controllers
             if (room == null) return NotFound();
             AdminRoomUpdateViewModel model = await UpdateRoomMapper.MapAsync(room,_dbContext);
             return View(model);
+        }
+        public async Task<IActionResult>Detail (int id)
+        {
+            Room room = await _dbContext.Rooms.Include(r=>r.Hotel)
+                .FirstOrDefaultAsync(r => r.Id == id && !r.IsDeleted);
+            if (room == null) return NotFound();
+            return View(new AdminRoomDetailViewModel {
+            Room=room,
+            HotelName=room.Hotel.Name,
+            Comments=await _dbContext.Comments
+            .Where(c=>!c.IsDeleted&&c.Room==room).ToListAsync(),
+            Reservations= await _dbContext.Reservations.Include(c => c.User)
+            .Where(c => !c.IsDeleted && c.Room == room).ToListAsync(),
+            HotelId=room.Hotel.Id,
+            MainImage=(await _dbContext.RoomImages.FirstOrDefaultAsync(r=>r.Room==room&&r.IsMain)).Name,
+            Images= await _dbContext.RoomImages.Where(r => r.Room == room && !r.IsMain)
+            .Select(i=>i.Name).ToListAsync()
+            });
+        }
+        [HttpPost]
+        public async Task<string> DeleteComment(int id)
+        {
+            Comment comment =await  _dbContext.Comments.FirstOrDefaultAsync(c => !c.IsDeleted && c.Id == id);
+            if (comment == null) return "Not Found";
+            comment.IsDeleted = true;
+            comment.DeletedDate = DateTime.Now;
+            _dbContext.Comments.Update(comment);
+            await _dbContext.SaveChangesAsync();
+            return "Success";
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

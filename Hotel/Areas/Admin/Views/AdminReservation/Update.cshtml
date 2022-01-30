@@ -1,0 +1,85 @@
+﻿@model ReservationUpdateViewModel
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Update a Reservation</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-action="Index" asp-controller="AdminHotel">Hotels</a></li>
+                        <li class="breadcrumb-item"><a asp-action="Detail" asp-route-id="@Model.HotelId" asp-controller="AdminHotel">@Model.HotelName</a></li>
+                        <li class="breadcrumb-item"><a asp-action="Detail" asp-route-id="@Model.RoomId" asp-controller="AdminRoom">@Model.RoomName</a></li>
+                        <li class="breadcrumb-item active">Update</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-6">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Update form</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form method="post" asp-action="Update" asp-controller="AdminReservation">
+                            <div class="card-body">
+                                <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                                <div class="form-group">
+                                    <input type="hidden" value="@Model.RoomId" asp-for="RoomId" />
+                                    <input type="hidden" value="@Model.HotelName" asp-for="HotelName" />
+                                    <input type="hidden" value="@Model.RoomName" asp-for="RoomName" />
+                                    <input type="hidden" value="@Model.ReservationId" asp-for="ReservationId" />
+                                    <input type="hidden" value="@Model.HotelId" asp-for="HotelId" />
+                                    <input type="hidden" value="@Model.MaxPeopleCount" asp-for="MaxPeopleCount" />
+                                    <h1>Hotel: @Model.HotelName</h1>
+                                    <h1>Room: @Model.RoomName</h1>
+                                    <h1>Maximum number of people: @Model.MaxPeopleCount</h1>
+                                    <label asp-for="StartDate">Start Date</label>
+                                    <input type="date" asp-for="StartDate" value="@Model.StartDate.ToString("dd/MM/yyyy")" class="form-control" placeholder="Enter new start date">
+                                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="EndDate">End Date</label>
+                                    <input type="date" asp-for="EndDate" value="@Model.EndDate.ToString("dd/MM/yyyy")" class="form-control" placeholder="Enter new end date">
+                                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="AdultCount">Adult count</label>
+                                    <input type="number"  asp-for="AdultCount" value="@Model.AdultCount" class="form-control" placeholder="Enter new adult count">
+                                    <span asp-validation-for="AdultCount" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="ChildCount">Child count</label>
+                                    <input type="number" asp-for="ChildCount" value="@Model.ChildCount" class="form-control" placeholder="Enter new child count">
+                                    <span asp-validation-for="ChildCount" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <a type="button" class="btn btn-danger"
+                                   asp-action="Detail" asp-route-id="@Model.RoomId" asp-controller="AdminRoom">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+@section Scripts{
+    <partial name="_ValidationPartial">
+}
