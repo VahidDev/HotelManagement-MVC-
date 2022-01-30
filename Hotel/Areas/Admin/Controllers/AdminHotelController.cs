@@ -104,12 +104,14 @@ namespace Hotel.Areas.Admin.Controllers
             User user = await _userManager.Users.FirstOrDefaultAsync
               (u => !u.IsDeleted && u.IsHotelUser && u.Id == hotel.User.Id);
             user.IsHotelUser = false;
+            FileDeleter.Delete(FileNameConstants.HotelImage, hotel.Image);
             await _userManager.RemoveFromRoleAsync(user, DefaultRoleConstants.Hotel);
             await _userManager.UpdateAsync(user);
              _dbContext.Hotels.Update(hotel);
             await _dbContext.SaveChangesAsync();
             return "Success";
         }
+     
         public async Task<IActionResult>Update(int id)
         {
             Models.Hotel hotel = await _dbContext.Hotels.Include(h => h.User).Include(h => h.Rating)
@@ -177,123 +179,6 @@ namespace Hotel.Areas.Admin.Controllers
             }
             return View(model);
         }
-        public async Task<IActionResult> CreateRoom(int id)
-        {
-            Models.Hotel hotel = await _dbContext.Hotels.FirstOrDefaultAsync(h=>!h.IsDeleted&&h.Id==id);
-            if (hotel == null) return NotFound();
-            List<FacilityCheckBox> facilityCheckBoxes = await FacilityCheckBoxListCreator
-                .CreateAsync(_dbContext);
-            return View(new AdminHotelCreateRoomViewModel { 
-            Facilities=facilityCheckBoxes.ToArray(),
-            HotelId=hotel.Id
-            });
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateRoom(AdminHotelCreateRoomViewModel model,int id)
-        {
-            if (id != model.HotelId) return BadRequest();
-            Models.Hotel hotel = await _dbContext.Hotels.FirstOrDefaultAsync(h => !h.IsDeleted && h.Id == id);
-            if (hotel==null) return NotFound();
-            List<FacilityCheckBox> facilityCheckBoxes = await FacilityCheckBoxListCreator
-                .CreateAsync(_dbContext);
-            AdminHotelCreateRoomViewModel modelToSend = new()
-            {
-                Facilities = facilityCheckBoxes.ToArray(),
-                HotelId=hotel.Id,
-            };
-            ICollection<Facility> facilities = new List<Facility>();
-            if (!Single.TryParse(model.Price.ToString(), out float priceResult))
-            {
-                ModelState.AddModelError(nameof(AdminHotelCreateRoomViewModel.Price),
-                    "Daxil Edilen qiymet duzgun deyl");
-            }
-            if (Convert.ToSingle(model.Price) < 10)
-            {
-                ModelState.AddModelError(nameof(AdminHotelCreateRoomViewModel.Price),
-                    "Daxil Edilen qiymet cox asagidir");
-            }
-            if (!Int32.TryParse(model.Size.ToString(), out int sizeResult))
-            {
-                ModelState.AddModelError(nameof(AdminHotelCreateRoomViewModel.Size),
-                    "Daxil Edilen olchu duzgun deyl");
-            }
-            if (!Byte.TryParse(model.Type.ToString(), out byte typeResult))
-            {
-                ModelState.AddModelError(nameof(AdminHotelCreateRoomViewModel.Size),
-                    "Daxil Edilen nov duzgun deyl");
-            }
-            if (!model.Facilities.Any(f => f.Selected))
-            {
-                ModelState.AddModelError(nameof(AdminHotelCreateRoomViewModel.Facilities),
-                    "En azi bir facility sechilmelidir");
-            }
-            if (!ModelState.IsValid) return View(modelToSend);
-            if (!model.MainImage.CheckSizeForMg())
-            {
-                ModelState.AddModelError(nameof(AdminHotelCreateRoomViewModel.MainImage),
-                    FileMessageConstants.MgSizeError);
-                return View(modelToSend);
-            }
-            if (!model.MainImage.CheckContentForImg())
-            {
-                ModelState.AddModelError(nameof(AdminHotelCreateRoomViewModel.MainImage),
-                    FileMessageConstants.ImageContentError);
-                return View(modelToSend);
-            }
-            Guid guid = Guid.NewGuid();
-            await model.MainImage.CreateAsync(guid, FileNameConstants.RoomImage);
-            ICollection<RoomImage> roomImages = new List<RoomImage>() { new RoomImage { 
-                IsMain=true,
-                Name=guid+model.MainImage.FileName,
-            } };
-            foreach (IFormFile file in model.RoomImages)
-            {
-                if (!file.CheckSizeForMg())
-                {
-                    ModelState.AddModelError(nameof(AdminHotelCreateRoomViewModel.RoomImages),
-                        "File Name: "+ file.FileName+FileMessageConstants.MgSizeError);
-                    return View(modelToSend);
-                }
-                if (!file.CheckContentForImg())
-                {
-                    ModelState.AddModelError(nameof(AdminHotelCreateRoomViewModel.RoomImages),
-                        "File Name: " + file.FileName+FileMessageConstants.ImageContentError);
-                    return View(modelToSend);
-                }
-                Guid guid1 = Guid.NewGuid();
-                await file.CreateAsync(guid1, FileNameConstants.RoomImage);
-                roomImages.Add(new RoomImage
-                {
-                    IsMain = false,
-                    Name = guid1 + file.FileName,
-                });
-            }
-            Room room = new()
-            { 
-            Description=model.Description,
-            Title=model.Title,
-            Hotel=hotel,
-            Price= priceResult,
-            Size= sizeResult,
-            Name=model.Name,
-            Type= typeResult,
-            RoomImages=roomImages,
-            };
-            foreach (FacilityCheckBox facilityCheckBox in model.Facilities)
-            {
-                if (facilityCheckBox.Selected)
-                {
-                    facilities.Add(facilityCheckBox.Facility);
-                    await _dbContext.Facilities.Include(f => f.Rooms)
-                         .Where(f => f.Id == facilityCheckBox.Facility.Id).ForEachAsync(f => {
-                             f.Rooms.Add(room);
-                         });
-                }
-            }
-            await _dbContext.Rooms.AddAsync(room);
-            await _dbContext.SaveChangesAsync();
-            return RedirectToAction(nameof(AdminHotelController.Detail), new { id });
-        }
+       
     }
 }

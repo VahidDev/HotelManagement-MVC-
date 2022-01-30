@@ -1,0 +1,124 @@
+﻿@model AdminRoomUpdateViewModel
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Update a room</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-action="Index" asp-controller="AdminHotel">Hotels</a></li>
+                        <li class="breadcrumb-item"><a asp-action="Detail" asp-route-id="@Model.HotelId" asp-controller="AdminHotel">@Model.HotelName</a></li>
+                        <li class="breadcrumb-item active">Update</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-6">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Update form</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form method="post" asp-action="Update" asp-controller="AdminRoom" enctype="multipart/form-data">
+                            <div class="card-body">
+                                <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                                <input  type="hidden" value="@Model.RoomId" asp-for="RoomId"/>
+                                <div class="form-group">
+                                    <label asp-for="Name">Room Name</label>
+                                    <input type="text" asp-for="Name" value="@Model.Name" class="form-control" placeholder="Enter room name">
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Description">Description</label>
+                                    <input value="@Model.Description" type="text" asp-for="Description" class="form-control" placeholder="Enter Description">
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Title">Title</label>
+                                    <input value="@Model.Title" type="text" asp-for="Title" class="form-control" placeholder="Enter Title">
+                                    <span asp-validation-for="Title" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Price">Price</label>
+                                    <input value="@Model.Price" type="text" asp-for="Price" class="form-control" placeholder="Enter Price">
+                                    <span asp-validation-for="Price" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Type">Type</label>
+                                    <input value="@Model.Type" type="number" asp-for="Type" class="form-control" placeholder="Enter Type">
+                                    <span asp-validation-for="Type" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Size">Size</label>
+                                    <input value="@Model.Size" type="tel" asp-for="Size" class="form-control" placeholder="Enter Size">
+                                    <span asp-validation-for="Size" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    @for (int i = 0; i < Model.Facilities.Length; i++)
+                                    {
+                                        <hr />
+                                        <img class="d-block w-25" src="~/img/features/@Model.Facilities[i].Facility.Image" />
+                                        <input class="form-control" type="checkbox" asp-for="Facilities[i].Selected" />
+                                        <label asp-for="Facilities[i].Selected">@Model.Facilities[i].Facility.Name</label>
+                                        <input type="hidden" asp-for="Facilities[i].Facility.Id" value="@Model.Facilities[i].Facility.Id"/>
+                                        <input class="form-control" type="hidden" asp-for="Facilities[i].Facility.Id"
+                                               value="@Model.Facilities[i].Facility.Id" />
+                                        <hr />
+                                    }
+                                    <span asp-validation-for="Facilities" class="text-danger"></span>
+                                </div>
+                                <input type="hidden" asp-for="HotelId" value="@Model.HotelId" />
+                                <input type="hidden" asp-for="HotelName" value="@Model.HotelName" />
+                                <div class="form-group">
+                                    <hr />
+                                    <div>Current Main Image</div>
+                                    <img class="w-25 d-block" src="~/img/rooms/@Model.MainImageStr" />
+                                    <input type="hidden" value="@Model.MainImageStr" asp-for="MainImageStr"/>
+                                    <hr />
+                                    <input type="file" accept="image/*" asp-for="MainImage" class="form-control" placeholder="Upload new main image file">
+                                    <span asp-validation-for="MainImage" class="text-danger"></span>
+                                </div>
+                                <div>Current images</div>
+                                @foreach (string imageName in Model.ImageStrs)
+                                {
+                                    <hr />
+                                    <div> <img class="w-25 d-block" src="~/img/rooms/@imageName" /></div>
+                                    <input type="hidden"value="@imageName" asp-for="ImageStrs"/>
+                                    <hr />
+                                }
+                                <div class="form-group">
+                                    <input type="file" accept="image/*" asp-for="RoomImages" class="form-control" multiple placeholder="Upload new image files">
+                                    <span asp-validation-for="RoomImages" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <a type="button" class="btn btn-danger"
+                                   asp-action="Detail" asp-route-id="@Model.HotelId" asp-controller="AdminHotel">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+@*@section Scripts{
+    <partial name="_ValidationPartial">
+}*@

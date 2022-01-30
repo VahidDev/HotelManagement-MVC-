@@ -47,6 +47,7 @@ namespace Hotel
                  options.ValidationInterval = TimeSpan.Zero);
             FileNameConstants.HotelImage = Path.Combine(_env.WebRootPath, "img","HOTEL");
             FileNameConstants.RoomImage = Path.Combine(_env.WebRootPath, "img","rooms");
+            FileNameConstants.FacilityImage = Path.Combine(_env.WebRootPath, "img", "features");
         }
         
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

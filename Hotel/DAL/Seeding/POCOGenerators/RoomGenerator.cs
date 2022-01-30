@@ -17,13 +17,14 @@ namespace Hotel.DAL.Seeding.POCOGenerators
             ICollection<RoomImage> RoomAImages = RoomAImageGetter.GetRoomAImages();
             ICollection<Facility> RoomBfacilities = await RoomBFacilityGetter.GetRoomBFacilities(dbContext);
             ICollection<RoomImage> RoomBImages = RoomBImageGetter.GetRoomBImages();
+            Models.Hotel hotelA = await dbContext.Hotels
+                    .FirstOrDefaultAsync(h => h.Name == DefaultHotelConstants.HotelAName);
             await dbContext.Rooms.AddRangeAsync(
                 new Room { 
                     Name=DefaultRoomConstants.HotelARoomAName,
                     Description=DefaultRoomConstants.HotelARoomADescription,
                     Facilities= RoomAfacilities,
-                    Hotel=await dbContext.Hotels
-                    .FirstOrDefaultAsync(h=>h.Name==DefaultHotelConstants.HotelAName),
+                    Hotel= hotelA,
                     Size=100,
                     Price=500,
                     Title= DefaultRoomConstants.HotelARoomTitle,
@@ -37,8 +38,7 @@ namespace Hotel.DAL.Seeding.POCOGenerators
                    Name = DefaultRoomConstants.HotelARoomBName,
                    Description = DefaultRoomConstants.HotelARoomBDescription,
                    Facilities = RoomBfacilities,
-                   Hotel = await dbContext.Hotels
-                   .FirstOrDefaultAsync(h => h.Name == DefaultHotelConstants.HotelAName),
+                   Hotel = hotelA,
                    Size = 80,
                    Price = 300,
                    Title = DefaultRoomConstants.HotelBRoomTitle,
@@ -46,6 +46,8 @@ namespace Hotel.DAL.Seeding.POCOGenerators
                    RoomImages= RoomBImages
                }
                );
+            hotelA.RoomCount += 2;
+            dbContext.Hotels.Update(hotelA);
         }
     }
 }

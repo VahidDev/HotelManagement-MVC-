@@ -9,5 +9,6 @@ namespace Hotel.Constants
     {
         public static string HotelImage="";
         public static string RoomImage="";
+        public static string FacilityImage="";
     }
 }

@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Hotel.Models;
 using Hotel.Utilities.ControllerUtilities.AdminHotelUtilities;
 using Microsoft.AspNetCore.Http;
 
-namespace Hotel.ViewModels.AdminViewModels.AdminHotelViewModels
+namespace Hotel.ViewModels.AdminViewModels.AdminRoomViewModels
 {
-    public class AdminHotelCreateRoomViewModel
+    public class AdminRoomUpdateViewModel
     {
-        public int HotelId { get; set; }
+        public int RoomId { get; set; }
         [Required(ErrorMessage = "Otag adi daxil olunmalidir!")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Title  daxil olunmalidir!")]
@@ -24,10 +20,13 @@ namespace Hotel.ViewModels.AdminViewModels.AdminHotelViewModels
         public int Size { get; set; }
         [Required(ErrorMessage = "Otagin qiymeti daxil olunmalidir!")]
         public float Price { get; set; }
+        [Required(ErrorMessage = "Otagin facilities-lari daxil olunmalidir!")]
         public FacilityCheckBox[] Facilities { get; set; }
-        [Required(ErrorMessage = "Otagin shekilleri daxil olunmalidir!")]
         public IFormFile[] RoomImages { get; set; }
-        [Required(ErrorMessage = "Otagin esas shekli daxil olunmalidir!")]
         public IFormFile MainImage { get; set; }
+        public string HotelName { get; set; }
+        public int HotelId{ get; set; }
+        public string MainImageStr { get; set; }
+        public ICollection<string> ImageStrs { get; set; } = new List<string>();
     }
 }

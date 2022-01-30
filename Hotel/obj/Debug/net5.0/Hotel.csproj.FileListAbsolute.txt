@@ -172,4 +172,5 @@ C:\Users\User\OneDrive\Рабочий стол\Hotel\Hotel\obj\Debug\net5.0\Razo
 C:\Users\User\OneDrive\Рабочий стол\Hotel\Hotel\obj\Debug\net5.0\Razor\Areas\Admin\Views\AdminHotel\Index.cshtml.g.cs
 C:\Users\User\OneDrive\Рабочий стол\Hotel\Hotel\obj\Debug\net5.0\Razor\Areas\Admin\Views\AdminHotel\Update.cshtml.g.cs
 C:\Users\User\OneDrive\Рабочий стол\Hotel\Hotel\obj\Debug\net5.0\Razor\Areas\Admin\Views\AdminHotel\Detail.cshtml.g.cs
-C:\Users\User\OneDrive\Рабочий стол\Hotel\Hotel\obj\Debug\net5.0\Razor\Areas\Admin\Views\AdminHotel\CreateRoom.cshtml.g.cs
+C:\Users\User\OneDrive\Рабочий стол\Hotel\Hotel\obj\Debug\net5.0\Razor\Areas\Admin\Views\AdminRoom\Create.cshtml.g.cs
+C:\Users\User\OneDrive\Рабочий стол\Hotel\Hotel\obj\Debug\net5.0\Razor\Areas\Admin\Views\AdminRoom\Update.cshtml.g.cs
