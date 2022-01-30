@@ -82,8 +82,15 @@ using Hotel.ViewModels.ReservationControllerViewModels;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 12 "C:\Users\User\OneDrive\Рабочий стол\Hotel\Hotel\Views\_ViewImports.cshtml"
+using Hotel.ViewModels.AboutPageViewModels;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"c8f7d185f9565c460640c20e3b92b8921a52a9c9", @"/Views/Room/GetRoomsByHotel.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"1d9e965d1308ab727ec0442d4586a61f414277ff", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"580d1f75d7cdf7caa3f7cc15075c861ab17483a5", @"/Views/_ViewImports.cshtml")]
     public class Views_Room_GetRoomsByHotel : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<RoomGetRoomsByHotelViewModel>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("value", "1", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -170,7 +177,7 @@ using Hotel.ViewModels.ReservationControllerViewModels;
     <div class=""container"">
         <div class=""hotel-book-form hotel-book-form-2"">
             ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c8f7d185f9565c460640c20e3b92b8921a52a9c911478", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c8f7d185f9565c460640c20e3b92b8921a52a9c911678", async() => {
                 WriteLiteral(@"
                 <div class=""row align-items-center"">
                     <div class=""col-12 col-lg-3"">
@@ -203,7 +210,7 @@ using Hotel.ViewModels.ReservationControllerViewModels;
                             <label for=""person"">Böyük</label>
                             <select id=""person"">
                                 ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c8f7d185f9565c460640c20e3b92b8921a52a9c913436", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c8f7d185f9565c460640c20e3b92b8921a52a9c913636", async() => {
                     WriteLiteral("1");
                 }
                 );
@@ -219,7 +226,7 @@ using Hotel.ViewModels.ReservationControllerViewModels;
                 Write(__tagHelperExecutionContext.Output);
                 __tagHelperExecutionContext = __tagHelperScopeManager.End();
                 WriteLiteral("\r\n                                ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c8f7d185f9565c460640c20e3b92b8921a52a9c914687", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c8f7d185f9565c460640c20e3b92b8921a52a9c914887", async() => {
                     WriteLiteral("2");
                 }
                 );
@@ -235,7 +242,7 @@ using Hotel.ViewModels.ReservationControllerViewModels;
                 Write(__tagHelperExecutionContext.Output);
                 __tagHelperExecutionContext = __tagHelperScopeManager.End();
                 WriteLiteral("\r\n                                ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c8f7d185f9565c460640c20e3b92b8921a52a9c915938", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c8f7d185f9565c460640c20e3b92b8921a52a9c916138", async() => {
                     WriteLiteral("3");
                 }
                 );
@@ -251,7 +258,7 @@ using Hotel.ViewModels.ReservationControllerViewModels;
                 Write(__tagHelperExecutionContext.Output);
                 __tagHelperExecutionContext = __tagHelperScopeManager.End();
                 WriteLiteral("\r\n                                ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c8f7d185f9565c460640c20e3b92b8921a52a9c917189", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c8f7d185f9565c460640c20e3b92b8921a52a9c917389", async() => {
                     WriteLiteral("4");
                 }
                 );
@@ -278,7 +285,7 @@ using Hotel.ViewModels.ReservationControllerViewModels;
                             <label for=""children"">Uşaq</label>
                             <select id=""children"">
                                 ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c8f7d185f9565c460640c20e3b92b8921a52a9c919093", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c8f7d185f9565c460640c20e3b92b8921a52a9c919293", async() => {
                     WriteLiteral("0");
                 }
                 );
@@ -294,7 +301,7 @@ using Hotel.ViewModels.ReservationControllerViewModels;
                 Write(__tagHelperExecutionContext.Output);
                 __tagHelperExecutionContext = __tagHelperScopeManager.End();
                 WriteLiteral("\r\n                                ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c8f7d185f9565c460640c20e3b92b8921a52a9c920344", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c8f7d185f9565c460640c20e3b92b8921a52a9c920544", async() => {
                     WriteLiteral("1");
                 }
                 );
@@ -310,7 +317,7 @@ using Hotel.ViewModels.ReservationControllerViewModels;
                 Write(__tagHelperExecutionContext.Output);
                 __tagHelperExecutionContext = __tagHelperScopeManager.End();
                 WriteLiteral("\r\n                                ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c8f7d185f9565c460640c20e3b92b8921a52a9c921595", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c8f7d185f9565c460640c20e3b92b8921a52a9c921795", async() => {
                     WriteLiteral("2");
                 }
                 );
@@ -326,7 +333,7 @@ using Hotel.ViewModels.ReservationControllerViewModels;
                 Write(__tagHelperExecutionContext.Output);
                 __tagHelperExecutionContext = __tagHelperScopeManager.End();
                 WriteLiteral("\r\n                                ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c8f7d185f9565c460640c20e3b92b8921a52a9c922846", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c8f7d185f9565c460640c20e3b92b8921a52a9c923046", async() => {
                     WriteLiteral("3");
                 }
                 );
@@ -351,7 +358,7 @@ using Hotel.ViewModels.ReservationControllerViewModels;
                     <div class=""col-12 col-lg-1 text-center imgLoad"">
                         <button type=""submit"" class=""hotel-btn"">
                             ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "c8f7d185f9565c460640c20e3b92b8921a52a9c924657", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "c8f7d185f9565c460640c20e3b92b8921a52a9c924857", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -416,8 +423,8 @@ using Hotel.ViewModels.ReservationControllerViewModels;
                             <div class=""hotel-room-card"">
                                 <div class=""hotel-cover-frame imgLoad"">
                                     ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c8f7d185f9565c460640c20e3b92b8921a52a9c928457", async() => {
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "c8f7d185f9565c460640c20e3b92b8921a52a9c928674", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c8f7d185f9565c460640c20e3b92b8921a52a9c928657", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "c8f7d185f9565c460640c20e3b92b8921a52a9c928874", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -491,7 +498,7 @@ AddHtmlAttributeValue("", 4769, room.RoomImages.FirstOrDefault().Name, 4769, 38,
                                     <div class=""hotel-room-features"">
                                         <div class=""hotel-feature imgLoad"">
                                             <div class=""hotel-icon-frame"">");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "c8f7d185f9565c460640c20e3b92b8921a52a9c933295", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "c8f7d185f9565c460640c20e3b92b8921a52a9c933495", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -515,7 +522,7 @@ AddHtmlAttributeValue("", 4769, room.RoomImages.FirstOrDefault().Name, 4769, 38,
 #line hidden
 #nullable disable
             WriteLiteral(" Nəfərlik</span>\r\n                                        </div>\r\n                                        <div class=\"hotel-feature imgLoad\">\r\n                                            <div class=\"hotel-icon-frame\">");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "c8f7d185f9565c460640c20e3b92b8921a52a9c935036", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "c8f7d185f9565c460640c20e3b92b8921a52a9c935236", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -539,7 +546,7 @@ AddHtmlAttributeValue("", 4769, room.RoomImages.FirstOrDefault().Name, 4769, 38,
 #line hidden
 #nullable disable
             WriteLiteral(" Ft²</span>\r\n                                        </div>\r\n                                    </div>\r\n                                    ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c8f7d185f9565c460640c20e3b92b8921a52a9c936697", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c8f7d185f9565c460640c20e3b92b8921a52a9c936897", async() => {
                 WriteLiteral("\r\n                                        <h3 class=\"hotel-mb-20\">");
 #nullable restore
 #line 121 "C:\Users\User\OneDrive\Рабочий стол\Hotel\Hotel\Views\Room\GetRoomsByHotel.cshtml"
@@ -594,8 +601,8 @@ AddHtmlAttributeValue("", 4769, room.RoomImages.FirstOrDefault().Name, 4769, 38,
 #line hidden
 #nullable disable
             WriteLiteral(" M <span>/gecə</span></div>\r\n                                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c8f7d185f9565c460640c20e3b92b8921a52a9c940169", async() => {
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "c8f7d185f9565c460640c20e3b92b8921a52a9c940386", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c8f7d185f9565c460640c20e3b92b8921a52a9c940369", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "c8f7d185f9565c460640c20e3b92b8921a52a9c940586", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -660,7 +667,7 @@ AddHtmlAttributeValue("", 4769, room.RoomImages.FirstOrDefault().Name, 4769, 38,
             WriteLiteral("\r\n        </div>\r\n\r\n    </div>\r\n</section>\r\n<!-- menu end -->\r\n<!--Add Current item class to the top bar for the Hotel Section.This is the room part of Hotel Page-->\r\n");
             DefineSection("Scripts", async() => {
                 WriteLiteral("\r\n    ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c8f7d185f9565c460640c20e3b92b8921a52a9c944599", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c8f7d185f9565c460640c20e3b92b8921a52a9c944799", async() => {
                     WriteLiteral(@"
         ""use strict"";
         window.onload = () => {

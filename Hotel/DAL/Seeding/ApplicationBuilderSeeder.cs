@@ -20,7 +20,7 @@ namespace Hotel.DAL.Seeding
                 .GetRequiredService<UserManager<User>>();
             RoleManager<IdentityRole> roleManager=scope.ServiceProvider
                 .GetRequiredService<RoleManager<IdentityRole>>();
-            DatabaseSeeder seeder = new DatabaseSeeder(dbContext, userManager,roleManager);
+            DatabaseSeeder seeder = new(dbContext, userManager,roleManager);
             await seeder.Seed();
         }
     }

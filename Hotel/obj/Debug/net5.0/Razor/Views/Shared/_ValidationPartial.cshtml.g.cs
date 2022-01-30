@@ -82,8 +82,15 @@ using Hotel.ViewModels.ReservationControllerViewModels;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 12 "C:\Users\User\OneDrive\Рабочий стол\Hotel\Hotel\Views\_ViewImports.cshtml"
+using Hotel.ViewModels.AboutPageViewModels;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"439c9bd651a394c21bf882c162c1617a4c4051ae", @"/Views/Shared/_ValidationPartial.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"1d9e965d1308ab727ec0442d4586a61f414277ff", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"580d1f75d7cdf7caa3f7cc15075c861ab17483a5", @"/Views/_ViewImports.cshtml")]
     public class Views_Shared__ValidationPartial : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

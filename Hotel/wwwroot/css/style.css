@@ -1207,7 +1207,6 @@ banner
 .hotel-banner-simple {
   padding-top: 180px;
   padding-bottom: 50px;
-  background-image: url('../img/about/bg.jpg');
   background-attachment: fixed;
   background-size: cover;
   background-position:center;

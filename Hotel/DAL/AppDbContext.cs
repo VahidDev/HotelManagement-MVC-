@@ -1,5 +1,6 @@
 ﻿using Hotel.Models;
 using Hotel.Models.WebsiteSections;
+using Hotel.Models.WebsiteSections.AboutPageSections;
 using Hotel.Models.WebsiteSections.SubWebsiteSections;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -24,5 +25,7 @@ namespace Hotel.DAL
         public DbSet<HotelShowcaseSection> HotelShowcaseSections { get; set; }
         public DbSet<HotelCommentSection> HotelCommentSections { get; set; }
         public DbSet<HotelPageBannerSection> HotelPageBannerSections { get; set; }
+        public DbSet<AboutPageBannerSection> AboutPageBannerSections{ get; set; }
+        public DbSet<AboutPageCeoSection> AboutPageCeoSections { get; set; }
     }
 }

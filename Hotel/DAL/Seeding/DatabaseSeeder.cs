@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Hotel.DAL.Seeding.POCOGenerators;
 using Hotel.DAL.Seeding.POCOGenerators.WebsiteSectionGenerators;
+using Hotel.DAL.Seeding.POCOGenerators.WebsiteSectionGenerators.AboutPageGenerators;
 using Hotel.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -53,6 +54,10 @@ namespace Hotel.DAL.Seeding
                 await _dbContext.GenerateCommentSectionAsync();
             if (!_dbContext.HotelPageBannerSections.Any())
                 await _dbContext.GenerateHotelPageBannerAsync();
+            if (!_dbContext.AboutPageBannerSections.Any())
+                await _dbContext.GenerateAboutPageBannerAsync();
+            if (!_dbContext.AboutPageCeoSections.Any())
+                await _dbContext.GenerateAboutPageCeoAsync();
                 await _dbContext.SaveChangesAsync();
         }
     }
