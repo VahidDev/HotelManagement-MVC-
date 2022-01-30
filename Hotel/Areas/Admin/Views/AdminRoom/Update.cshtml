@@ -86,7 +86,8 @@
                                 </div>
                                 <div>Current images</div>
                                 @foreach (string imageName in Model.ImageStrs)
-                                {
+                                        {
+                                            if (imageName == Model.MainImageStr) continue;
                                     <hr />
                                     <div> <img class="w-25 d-block" src="~/img/rooms/@imageName" /></div>
                                     <input type="hidden"value="@imageName" asp-for="ImageStrs"/>

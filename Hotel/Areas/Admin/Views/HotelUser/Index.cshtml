@@ -76,7 +76,7 @@
                                         <td>@Model.Hotel.RoomCount</td>
                                         <td>@Model.Hotel.ReservationCount</td>
                                         <td>
-                                            <a class="btn btn-primary" asp-route-id="@Model.Hotel.Id" asp-action="Update">Update</a>
+                                            <a class="btn btn-primary" asp-route-id="@Model.Hotel.Id" asp-controller="AdminHotel" asp-action="Update">Update</a>
                                             <input type="hidden" value="@Model.Hotel.Id" />
                                             <input type="hidden" value="@Model.Hotel.Name" />
                                             <!--Fake Button trigger modal -->

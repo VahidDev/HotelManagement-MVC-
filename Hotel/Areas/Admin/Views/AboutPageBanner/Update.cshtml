@@ -1,0 +1,67 @@
+﻿@model AboutPageBannerUpdateViewModel
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Update About Page Banner Section</h1>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-6">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Update form</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form method="post" enctype="multipart/form-data" asp-action="Update"
+                              asp-controller="AboutPageBanner">
+                            <div class="card-body">
+                                <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                                <div class="form-group">
+                                    <label asp-for="Title">Title</label>
+                                    <input type="text" asp-for="Title" value="@Model.Title" class="form-control" placeholder="Enter new title">
+                                    <span asp-validation-for="Title" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Description">Description</label>
+                                    <input type="text" asp-for="Description" value="@Model.Description" class="form-control" placeholder="Enter new Description">
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    Current Image
+                                    <img class="w-50 d-block" src="~/img/about/@Model.Image" />
+                                    <input type="hidden" asp-for="Image" value="@Model.Image">
+                                    <label asp-for="ImageFile">Upload new image</label>
+                                    <input type="file" accept="image/*" asp-for="ImageFile" class="form-control">
+                                    <span asp-validation-for="ImageFile" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <a type="button" class="btn btn-danger"
+                                   asp-action="Index">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+@section Scripts{
+    <partial name="_ValidationPartial">
+}

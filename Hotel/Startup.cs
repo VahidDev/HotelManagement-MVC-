@@ -46,8 +46,10 @@ namespace Hotel
             services.Configure<SecurityStampValidatorOptions>(options =>
                  options.ValidationInterval = TimeSpan.Zero);
             FileNameConstants.HotelImage = Path.Combine(_env.WebRootPath, "img","HOTEL");
-            FileNameConstants.RoomImage = Path.Combine(_env.WebRootPath, "img","rooms");
+            FileNameConstants.RoomImage = Path.Combine(_env.WebRootPath, "img","rooms"); 
             FileNameConstants.FacilityImage = Path.Combine(_env.WebRootPath, "img", "features");
+            FileNameConstants.AboutBannerImage = Path.Combine(_env.WebRootPath, "img", "about");
+            FileNameConstants.AboutCeoImage = Path.Combine(_env.WebRootPath, "img", "faces");
         }
         
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

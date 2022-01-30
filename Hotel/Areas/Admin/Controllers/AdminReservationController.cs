@@ -75,6 +75,8 @@ namespace Hotel.Areas.Admin.Controllers
                     "En azi 1 nefer vaxt daxil olunmalidir!");
             }
             if (!ModelState.IsValid) return View(model);
+            room.ReservationCount++;
+            room.Hotel.ReservationCount++;
             room.Popularity += 50;
             room.Hotel.Popularity += 50;
             _dbContext.Rooms.Update(room);
@@ -99,6 +101,8 @@ namespace Hotel.Areas.Admin.Controllers
             if (reservation == null) return "Not Found";
             reservation.IsDeleted = true;
             reservation.DeletedDate = DateTime.Now;
+            reservation.Room.ReservationCount--;
+            reservation.Room.Hotel.ReservationCount--;
             reservation.Room.Popularity -= 30;
             reservation.Room.Hotel.Popularity -= 30;
             _dbContext.Reservations.Update(reservation);

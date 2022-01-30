@@ -1203,16 +1203,19 @@ banner
   background-position:center !important;
   background-repeat: no-repeat !important;
 }
+.customImage {
+    background-image: url('../img/about/bg.jpg') !important;
+}
 
 .hotel-banner-simple {
-  padding-top: 180px;
-  padding-bottom: 50px;
-  background-attachment: fixed;
-  background-size: cover;
-  background-position:center;
-  background-repeat: no-repeat;
-  color: #fff;
- }
+    padding-top: 180px;
+    padding-bottom: 50px;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #fff;
+}
  
 .contact{
   background-image: url('../img/contact/bg.jpg');

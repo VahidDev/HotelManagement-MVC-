@@ -173,6 +173,18 @@ namespace Hotel.Areas.Admin.Controllers
             }
             if (model.MainImage != null)
             {
+                if (!model.MainImage.CheckSizeForMg())
+                {
+                    ModelState.AddModelError(nameof(AdminRoomUpdateViewModel.MainImage),
+                          FileMessageConstants.MgSizeError);
+                    return View(model);
+                }
+                if (!model.MainImage.CheckContentForImg())
+                {
+                    ModelState.AddModelError(nameof(AdminRoomUpdateViewModel.MainImage),
+                         FileMessageConstants.ImageContentError);
+                    return View(model);
+                }
                 Guid guid = Guid.NewGuid();
                 FileDeleter.Delete(FileNameConstants.RoomImage, model.MainImageStr);
                 await model.MainImage.CreateAsync(guid, FileNameConstants.RoomImage);
@@ -187,11 +199,25 @@ namespace Hotel.Areas.Admin.Controllers
                 _dbContext.RoomImages.RemoveRange(roomImages);
                 foreach (IFormFile file in model.RoomImages)
                 {
+                    if (!file.CheckSizeForMg())
+                    {
+                        ModelState.AddModelError(nameof(AdminRoomUpdateViewModel.RoomImages),
+                            "File Name: " + file.FileName + FileMessageConstants.MgSizeError);
+                        return View(model);
+                    }
+                    if (!file.CheckContentForImg())
+                    {
+                        ModelState.AddModelError(nameof(AdminRoomUpdateViewModel.RoomImages),
+                            "File Name: " + file.FileName + FileMessageConstants.ImageContentError);
+                        return View(model);
+                    }
                     Guid guid = Guid.NewGuid();
                     await file.CreateAsync(guid, FileNameConstants.RoomImage);
-                    await _dbContext.RoomImages.AddAsync(new RoomImage { 
-                    Room=room,
-                    Name=guid+file.FileName
+                    await _dbContext.RoomImages.AddAsync(new RoomImage
+                    {
+                        Room = room,
+                        Name = guid + file.FileName,
+                        IsMain = false
                     });
                 }
             }

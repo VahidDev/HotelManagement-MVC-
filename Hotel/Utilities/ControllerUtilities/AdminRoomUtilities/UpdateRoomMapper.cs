@@ -43,7 +43,7 @@ namespace Hotel.Utilities.ControllerUtilities.AdminRoomUtilities
             Type=room.Type,
             HotelId=room.Hotel.Id,
             HotelName=room.Hotel.Name,
-            MainImageStr=(await dbContext.RoomImages.FirstOrDefaultAsync(r=>r.IsMain)).Name,
+            MainImageStr=(await dbContext.RoomImages.FirstOrDefaultAsync(r=>r.IsMain&&r.Room==room)).Name,
             };
             List<string> images = await dbContext.RoomImages
                 .Where(r => r.Room == room).Select(r => r.Name).ToListAsync();

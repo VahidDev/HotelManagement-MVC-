@@ -10,7 +10,7 @@ namespace Hotel.Utilities.FileUtilities
     {
         public static bool CheckSizeForMg(this IFormFile file)
         {
-            if (file.Length >= 1 * 1000_000) return false;
+            if (file.Length >= 3 * 1000_000) return false;
             return true;
         }
     }
