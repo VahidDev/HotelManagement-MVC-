@@ -20,7 +20,8 @@ using Microsoft.EntityFrameworkCore;
 namespace Hotel.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles =nameof(DefaultRoleConstants.Admin))]
+    [Authorize(Roles = nameof(DefaultRoleConstants.Admin) + ","
+    + nameof(DefaultRoleConstants.Hotel))]
     public class AdminRoomController : Controller
     {
         private readonly AppDbContext _dbContext;

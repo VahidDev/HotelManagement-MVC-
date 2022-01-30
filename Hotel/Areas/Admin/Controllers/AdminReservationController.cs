@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Hotel.Constants.POCOConstants;
 using Hotel.DAL;
@@ -13,7 +15,8 @@ using Microsoft.EntityFrameworkCore;
 namespace Hotel.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = nameof(DefaultRoleConstants.Admin))]
+    [Authorize(Roles = nameof(DefaultRoleConstants.Admin) + ","
+    + nameof(DefaultRoleConstants.Hotel))]
     public class AdminReservationController : Controller
     {
         private readonly AppDbContext _dbContext;
@@ -26,14 +29,82 @@ namespace Hotel.Areas.Admin.Controllers
             _userManager = userManager;
             _roleManager = roleManager;
         }
+        public async Task<IActionResult> MakeReservation(int id)
+        {
+            Room room= await _dbContext.Rooms.Include(r => r.Hotel)
+                .Include(r=>r.Reservations.Where(r=>!r.IsDeleted))
+                 .FirstOrDefaultAsync(r => !r.IsDeleted && r.Id == id);
+            if (room == null) return NotFound();
+            return View(new ReservationCreateViewModel
+            {
+                HotelId=room.Hotel.Id,
+                RoomId=room.Id,
+                RoomName=room.Name,
+                HotelName=room.Hotel.Name,
+                MaxPeopleCount=room.Type
+            });
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> MakeReservation(ReservationCreateViewModel model,int id)
+        {
+            Room room = await _dbContext.Rooms.Include(r => r.Hotel)
+                .Include(r => r.Reservations.Where(r => !r.IsDeleted))
+                 .FirstOrDefaultAsync(r => !r.IsDeleted && r.Id == id);
+            if (room == null) return NotFound();
+            if (model.HotelId != room.Hotel.Id) return BadRequest();
+            if (model.RoomId != room.Id) return BadRequest();
+            if (!DateChecker.IsValid(model.StartDate, model.EndDate))
+            {
+                ModelState.AddModelError(nameof(ReservationCreateViewModel.EndDate),
+                    "Invalid Dates");
+            }
+            if (DateChecker.IsConflicted(room, model.StartDate, model.EndDate))
+            {
+                ModelState.AddModelError(nameof(ReservationCreateViewModel.EndDate),
+                    "These dates conflict with one of the reservations for this room");
+            }
+            if (model.AdultCount + model.ChildCount > room.Type)
+            {
+                ModelState.AddModelError(nameof(ReservationCreateViewModel.AdultCount),
+                    "Bu otaq ucun adam sayi coxdur");
+            }
+            if (model.AdultCount == 0)
+            {
+                ModelState.AddModelError(nameof(ReservationCreateViewModel.AdultCount),
+                    "En azi 1 nefer vaxt daxil olunmalidir!");
+            }
+            if (!ModelState.IsValid) return View(model);
+            room.Popularity += 50;
+            room.Hotel.Popularity += 50;
+            _dbContext.Rooms.Update(room);
+            _dbContext.Hotels.Update(room.Hotel);
+            await _dbContext.Reservations.AddAsync(new Reservation {
+                StartDate = model.StartDate,
+                EndDate = model.EndDate,
+                AdultCount = model.AdultCount,
+                ChildCount = model.ChildCount,
+                Room=room,
+                User=await _userManager.GetUserAsync(HttpContext.User)
+            });
+            await _dbContext.SaveChangesAsync();
+            return RedirectToAction(nameof(AdminRoomController.Detail), "AdminRoom"
+                , new {id});
+        }
         [HttpPost]
         public async Task<string> Delete(int id)
         {
-            Reservation reservation = await _dbContext.Reservations
+            Reservation reservation = await _dbContext.Reservations.Include(r=>r.Room).ThenInclude(r=>r.Hotel)
                 .FirstOrDefaultAsync(f => f.Id == id && !f.IsDeleted);
             if (reservation == null) return "Not Found";
             reservation.IsDeleted = true;
             reservation.DeletedDate = DateTime.Now;
+            reservation.Room.Popularity -= 30;
+            reservation.Room.Hotel.Popularity -= 30;
+            _dbContext.Reservations.Update(reservation);
+            _dbContext.Rooms.Update(reservation.Room);
+            _dbContext.Hotels.Update(reservation.Room.Hotel);
+            await _dbContext.SaveChangesAsync();
             return "Success";
         }
         public async Task<IActionResult>Update(int id)

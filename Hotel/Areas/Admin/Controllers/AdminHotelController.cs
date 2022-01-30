@@ -19,7 +19,8 @@ using Microsoft.EntityFrameworkCore;
 namespace Hotel.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles =nameof(DefaultRoleConstants.Admin))]
+    [Authorize(Roles = nameof(Constants.POCOConstants.DefaultRoleConstants.Admin) + ","
+     + nameof(Constants.POCOConstants.DefaultRoleConstants.Hotel))]
     public class AdminHotelController : Controller
     {
         private readonly AppDbContext _dbContext;
@@ -32,6 +33,7 @@ namespace Hotel.Areas.Admin.Controllers
             _userManager = userManager;
             _roleManager = roleManager;
         }
+        [Authorize(Roles = nameof(DefaultRoleConstants.Admin))]
         public async Task<IActionResult> Index()
         {
             return View(new AdminHotelIndexViewModel
@@ -40,6 +42,7 @@ namespace Hotel.Areas.Admin.Controllers
                 .Include(h => h.User).Include(h=>h.Rating).ToListAsync()
             });
         }
+        [Authorize(Roles = nameof(DefaultRoleConstants.Admin))]
         public async Task<IActionResult> CreateHotel(string id)
         {
             User user = await _userManager.Users
@@ -51,6 +54,7 @@ namespace Hotel.Areas.Admin.Controllers
                 Ratings=await _dbContext.Ratings.Where(r=>!r.IsDeleted).ToListAsync()
             });
         }
+        [Authorize(Roles = nameof(DefaultRoleConstants.Admin))]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateHotel(AdminHotelCreateViewModel model,string id)
@@ -88,6 +92,8 @@ namespace Hotel.Areas.Admin.Controllers
             await _dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
+       
+        [HttpPost]
         public async Task<string> Delete(int id)
         {
             Models.Hotel hotel = await _dbContext.Hotels.Include(h=>h.Rooms).Include(h=>h.User)
@@ -111,7 +117,6 @@ namespace Hotel.Areas.Admin.Controllers
             await _dbContext.SaveChangesAsync();
             return "Success";
         }
-     
         public async Task<IActionResult>Update(int id)
         {
             Models.Hotel hotel = await _dbContext.Hotels.Include(h => h.User).Include(h => h.Rating)
@@ -156,7 +161,7 @@ namespace Hotel.Areas.Admin.Controllers
             }
             _dbContext.Hotels.Update(hotel);
             await _dbContext.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Detail),new { id });
         }
         public async Task<IActionResult>Detail(int id)
         {

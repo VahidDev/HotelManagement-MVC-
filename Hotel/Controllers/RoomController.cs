@@ -62,6 +62,67 @@ namespace Hotel.Controllers
             });
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Reservation(RoomReservationViewModel model)
+        {
+            Room room = await _dbContext.Rooms.Include(r => r.Hotel)
+                .Include(r => r.Facilities).Include(r => r.RoomImages).Include(r => r.Reservations)
+                .FirstOrDefaultAsync(r => r.Id == model.RoomId);
+            if (room == null) return BadRequest();
+            ViewBag.logo = await LogoAdder.GetLogoAsync(_dbContext);
+            model.Room = room;
+            model.MainImage = room.RoomImages.FirstOrDefault(i => i.IsMain);
+            model.Images = room.RoomImages.Where(i => !i.IsMain).ToList();
+            model.Facilities = room.Facilities;
+            model.Comments = await _dbContext.Comments.Where(c => c.Room == room && !c.IsDeleted)
+                .Include(c => c.Rating).ToListAsync();
+            model.Ratings = await _dbContext.Ratings.Where(r => !r.IsDeleted).ToListAsync();
+            if (model.AdultCount == 0)
+            {
+                ModelState.AddModelError(nameof(RoomReservationViewModel.AdultCount),
+                    "En azi 1 nefer vaxt daxil olunmalidir!");
+            }
+            if (!ModelState.IsValid) return View(model);
+            if (!User.Identity.IsAuthenticated)
+            {
+                ModelState.AddModelError(nameof(RoomReservationViewModel.AdultCount),
+                    "First you need to login");
+                return View(model);
+            }
+            if (!DateChecker.IsValid(model.StartDate, model.EndDate))
+            {
+                ModelState.AddModelError(nameof(RoomReservationViewModel.EndDate), "Invalid dates");
+                return View(model);
+            }
+            if (DateChecker.IsConflicted(room, model.StartDate, model.EndDate))
+            {
+                ModelState.AddModelError(nameof(RoomReservationViewModel.EndDate),
+                    "The chosen range conflicts with one of the reservations in the database");
+                return View(model);
+            }
+            if (model.AdultCount + model.ChildCount > room.Type)
+            {
+                ModelState.AddModelError(nameof(RoomReservationViewModel.AdultCount),
+                    "Too many people for this room");
+                return View(model);
+            }
+            await _dbContext.Reservations.AddAsync(new Reservation
+            {
+                User = await _userManager.GetUserAsync(HttpContext.User),
+                StartDate = model.StartDate,
+                EndDate = model.EndDate,
+                AdultCount = model.AdultCount,
+                ChildCount = model.ChildCount,
+                Room = room
+            });
+            room.Popularity += 50;
+            room.Hotel.Popularity += 50;
+            room.ReservationCount += 1;
+            room.Hotel.ReservationCount += 1;
+            await _dbContext.SaveChangesAsync();
+            return RedirectToAction(nameof(HotelController.Index), "Hotel");
+        }
+        [HttpPost]
         public async Task<JsonResult> Comment(string name,string content,string email
             ,int roomId,int ratingId)
         {
@@ -100,60 +161,6 @@ namespace Hotel.Controllers
             await _dbContext.SaveChangesAsync();
             return Json(comment);
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Reservation(RoomReservationViewModel model)
-        {
-            Room room = await _dbContext.Rooms.Include(r=>r.Hotel)
-                .Include(r=>r.Facilities).Include(r=>r.RoomImages).Include(r=>r.Reservations)
-                .FirstOrDefaultAsync(r=>r.Id==model.RoomId);
-            if (room == null) return BadRequest();
-            ViewBag.logo = await LogoAdder.GetLogoAsync(_dbContext);
-            model.Room = room;
-            model.MainImage = room.RoomImages.FirstOrDefault(i => i.IsMain);
-            model.Images = room.RoomImages.Where(i => !i.IsMain).ToList();
-            model.Facilities = room.Facilities;
-            model.Comments = await _dbContext.Comments.Where(c =>c.Room==room&& !c.IsDeleted)
-                .Include(c=>c.Rating).ToListAsync();
-            model.Ratings = await _dbContext.Ratings.Where(r=>!r.IsDeleted).ToListAsync();
-            if (!ModelState.IsValid) return View(model);
-            if (!User.Identity.IsAuthenticated)
-            {
-                ModelState.AddModelError(nameof(RoomReservationViewModel.AdultCount),
-                    "First you need to login");
-                return View(model);
-            }
-            if (!DateChecker.IsValid(model.StartDate, model.EndDate))
-            {
-                ModelState.AddModelError(nameof(RoomReservationViewModel.EndDate), "Invalid dates");
-                return View(model);
-            }
-            if (DateChecker.IsConflicted(room,model.StartDate,model.EndDate))
-            {
-                ModelState.AddModelError(nameof(RoomReservationViewModel.EndDate),
-                    "The chosen range conflicts with one of the reservations in the database");
-                return View(model);
-            }
-            if (model.AdultCount + model.ChildCount > room.Type)
-            {
-                ModelState.AddModelError(nameof(RoomReservationViewModel.AdultCount),
-                    "Too many people for this room");
-                return View(model);
-            }
-            await _dbContext.Reservations.AddAsync(new Reservation {
-            User=await _userManager.GetUserAsync(HttpContext.User),
-            StartDate=model.StartDate,
-            EndDate=model.EndDate,
-            AdultCount=model.AdultCount,
-            ChildCount=model.ChildCount,
-            Room=room
-            });
-            room.Popularity += 50;
-            room.Hotel.Popularity += 50;
-            room.ReservationCount += 1;
-            room.Hotel.ReservationCount += 1;
-            await _dbContext.SaveChangesAsync();
-            return RedirectToAction(nameof(HotelController.Index), "Hotel");
-        }
+       
     }
 }

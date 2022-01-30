@@ -1,4 +1,4 @@
-﻿@model ReservationUpdateViewModel
+﻿@model ReservationCreateViewModel
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Update a Reservation</h1>
+                    <h1>Make a reservation</h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -21,40 +21,39 @@
                     <!-- general form elements -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Update form</h3>
+                            <h3 class="card-title">Create form</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form method="post" asp-action="Update" asp-controller="AdminReservation">
+                        <form method="post" asp-action="MakeReservation" asp-controller="AdminReservation">
                             <div class="card-body">
                                 <div class="text-danger" asp-validation-summary="ModelOnly"></div>
                                 <div class="form-group">
                                     <input type="hidden" value="@Model.RoomId" asp-for="RoomId" />
                                     <input type="hidden" value="@Model.HotelName" asp-for="HotelName" />
                                     <input type="hidden" value="@Model.RoomName" asp-for="RoomName" />
-                                    <input type="hidden" value="@Model.ReservationId" asp-for="ReservationId" />
                                     <input type="hidden" value="@Model.HotelId" asp-for="HotelId" />
                                     <input type="hidden" value="@Model.MaxPeopleCount" asp-for="MaxPeopleCount" />
                                     <h1>Hotel: @Model.HotelName</h1>
                                     <h1>Room: @Model.RoomName</h1>
                                     <h1>Maximum number of people: @Model.MaxPeopleCount</h1>
                                     <label asp-for="StartDate">Start Date</label>
-                                    <input type="date" asp-for="StartDate" value="@Model.StartDate.ToString("dd/MM/yyyy")" class="form-control" placeholder="Enter new start date">
+                                    <input type="date" asp-for="StartDate" class="form-control" placeholder="Enter new start date">
                                     <span asp-validation-for="StartDate" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="EndDate">End Date</label>
-                                    <input type="date" asp-for="EndDate" value="@Model.EndDate.ToString("dd/MM/yyyy")" class="form-control" placeholder="Enter new end date">
+                                    <input type="date"  asp-for="EndDate" class="form-control" placeholder="Enter new end date">
                                     <span asp-validation-for="EndDate" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="AdultCount">Adult count</label>
-                                    <input type="number"  asp-for="AdultCount" value="@Model.AdultCount" class="form-control" placeholder="Enter new adult count">
+                                    <input type="number" asp-for="AdultCount" class="form-control" placeholder="Enter new adult count">
                                     <span asp-validation-for="AdultCount" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="ChildCount">Child count</label>
-                                    <input type="number" asp-for="ChildCount" value="@Model.ChildCount" class="form-control" placeholder="Enter new child count">
+                                    <input type="number" asp-for="ChildCount"  class="form-control" placeholder="Enter new child count">
                                     <span asp-validation-for="ChildCount" class="text-danger"></span>
                                 </div>
                             </div>

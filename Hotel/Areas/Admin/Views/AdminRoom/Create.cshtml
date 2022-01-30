@@ -8,12 +8,6 @@
                 <div class="col-sm-6">
                     <h1>Create a room</h1>
                 </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a asp-action="Index" asp-controller="User">User</a></li>
-                        <li class="breadcrumb-item active">Create</li>
-                    </ol>
-                </div>
             </div>
         </div><!-- /.container-fluid -->
     </section>
@@ -31,7 +25,7 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form method="post" asp-action="Create" enctype="multipart/form-data">
+                        <form method="post" asp-action="Create" asp-controller="AdminRoom" enctype="multipart/form-data">
                             <div class="card-body">
                                 <div class="text-danger" asp-validation-summary="ModelOnly"></div>
                                 <div class="form-group">
@@ -51,13 +45,18 @@
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="Type">Otagin novu</label>
-                                    <input type="number"asp-for="Type" class="form-control" placeholder="Enter room type">
+                                    <input type="number" asp-for="Type" class="form-control" placeholder="Enter room type">
                                     <span asp-validation-for="Type" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="Price">Otagin qiymeti</label>
                                     <input type="text" asp-for="Price" class="form-control" placeholder="Enter room price">
                                     <span asp-validation-for="Price" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Size">Otagin olchusu (Ft²)</label>
+                                    <input type="text" asp-for="Size" class="form-control" placeholder="Enter room size">
+                                    <span asp-validation-for="Size" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     @for (int i = 0; i < Model.Facilities.Length; i++)
@@ -67,7 +66,7 @@
                                         <input class="form-control" type="checkbox" asp-for="Facilities[i].Selected" />
                                         <label asp-for="Facilities[i].Selected">@Model.Facilities[i].Facility.Name</label>
                                         <input class="form-control" type="hidden" asp-for="Facilities[i].Facility.Id"
-                                               value="@Model.Facilities[i].Facility.Id"/>
+                                               value="@Model.Facilities[i].Facility.Id" />
                                         <hr />
                                     }
                                     <span asp-validation-for="Facilities" class="text-danger"></span>

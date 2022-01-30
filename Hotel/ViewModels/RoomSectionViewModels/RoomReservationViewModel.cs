@@ -19,7 +19,7 @@ namespace Hotel.ViewModels.RoomSectionViewModels
         public DateTime StartDate { get; set; }
         [Required(ErrorMessage = "Son tarix qeyd olunmalıdır")]
         public DateTime EndDate { get; set; }
-        [Required(ErrorMessage = "Bu hissə doldurulmalıdır")]
+        [Required(ErrorMessage = "En azi 1 nefer boyuk olmalidir")]
         public int AdultCount { get; set; }
         [Required(ErrorMessage = "Bu hissə doldurulmalıdır")]
         public int ChildCount { get; set; }

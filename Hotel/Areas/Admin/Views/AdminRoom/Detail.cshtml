@@ -8,13 +8,6 @@
                 <div class="col-sm-6">
                     <h1>Room Details</h1>
                 </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a asp-controller="AdminHotel" asp-action="Index">Hotels</a></li>
-                        <li class="breadcrumb-item"><a asp-controller="AdminHotel" asp-action="Detail" asp-route-id="@Model.HotelId">@Model.HotelName</a></li>
-                        <li class="breadcrumb-item active">Room Details</li>
-                    </ol>
-                </div>
             </div>
         </div><!-- /.container-fluid -->
     </section>
@@ -38,7 +31,7 @@
                                         <th>Hotel Name</th>
                                         <th>Title</th>
                                         <th>Description</th>
-                                        <th>PRice</th>
+                                        <th>Price</th>
                                         <th>Size</th>
                                         <th>Type</th>
                                         <th>Reservation Count</th>
@@ -52,11 +45,12 @@
                                         <td>@Model.Room.Title</td>
                                         <td>@Model.Room.Description</td>
                                         <td>$@Model.Room.Price</td>
-                                        <td>@Model.Room.Size</td>
+                                        <td>@Model.Room.Size Ft²</td>
                                         <td>@Model.Room.Type</td>
                                         <td>@Model.Room.ReservationCount</td>
                                         <td>
                                             <a class="btn btn-primary" asp-route-id="@Model.Room.Id" asp-action="Update">Update</a>
+                                            <a class="btn btn-secondary my-4" asp-route-id="@Model.Room.Id" asp-controller="AdminReservation" asp-action="MakeReservation">Make Reservation</a>
                                             <input type="hidden" value="@Model.Room.Id" />
                                             <input type="hidden" value="@Model.Room.Name" />
                                             <!--Fake Button trigger modal -->
