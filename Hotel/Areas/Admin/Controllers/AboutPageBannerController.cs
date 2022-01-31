@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Hotel.Constants;
 using Hotel.Constants.MessageConstants;
@@ -9,7 +7,6 @@ using Hotel.DAL;
 using Hotel.Models;
 using Hotel.Models.WebsiteSections.AboutPageSections;
 using Hotel.Utilities.FileUtilities;
-using Hotel.ViewModels.AboutPageViewModels;
 using Hotel.ViewModels.AdminViewModels.AboutPageViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;

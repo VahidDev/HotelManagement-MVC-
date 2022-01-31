@@ -115,7 +115,7 @@ namespace Hotel.Areas.Admin.Controllers
                 Facility facility= allFacilities
                        .FirstOrDefault(f => f.Id == facilityCheckBox.Facility.Id);
                 facilityCheckBox.Facility = facility;
-                facilityCheckBox.Facility.Image = facility.Image;
+               
             }
             if (!model.Facilities.Any(f=>f.Selected))
             {
@@ -298,19 +298,17 @@ namespace Hotel.Areas.Admin.Controllers
                 ModelState.AddModelError(nameof(AdminRoomCreateViewModel.Facilities),
                     "En azi bir facility sechilmelidir");
             }
-            if (!ModelState.IsValid) return View(modelToSend);
             if (!model.MainImage.CheckSizeForMg())
             {
                 ModelState.AddModelError(nameof(AdminRoomCreateViewModel.MainImage),
                     FileMessageConstants.MgSizeError);
-                return View(modelToSend);
             }
             if (!model.MainImage.CheckContentForImg())
             {
                 ModelState.AddModelError(nameof(AdminRoomCreateViewModel.MainImage),
                     FileMessageConstants.ImageContentError);
-                return View(modelToSend);
             }
+            if (!ModelState.IsValid) return View(modelToSend);
             Guid guid = Guid.NewGuid();
             await model.MainImage.CreateAsync(guid, FileNameConstants.RoomImage);
             ICollection<RoomImage> roomImages = new List<RoomImage>() { new RoomImage {
