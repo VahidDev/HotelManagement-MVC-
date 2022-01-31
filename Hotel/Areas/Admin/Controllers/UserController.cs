@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace Hotel.Areas.Admin.Controllers
 {
@@ -48,6 +49,34 @@ namespace Hotel.Areas.Admin.Controllers
                 });
             }
             return View(model);
+        }
+        public async Task<JsonResult> Search(string userName)
+        {
+            UserIndexViewModel model = new();
+            if (String.IsNullOrEmpty(userName))
+            {
+                ICollection<User> Allusers = await _userManager.Users.Where(u => !u.IsDeleted).ToListAsync();
+                foreach (User user in Allusers)
+                {
+                    model.UsersRoles.Add(new UserAndRole
+                    {
+                        User = user,
+                        RolesNames = await _userManager.GetRolesAsync(user),
+                    });
+                }
+                return Json(model);
+            }
+            ICollection<User> users = await _userManager.Users.Where
+                (u => !u.IsDeleted&&u.UserName.StartsWith(userName)).ToListAsync();
+            foreach (User user in users)
+            {
+                model.UsersRoles.Add(new UserAndRole
+                {
+                    User = user,
+                    RolesNames = await _userManager.GetRolesAsync(user),
+                });
+            }
+            return Json(model);
         }
         public async Task<IActionResult>Create()
         {
