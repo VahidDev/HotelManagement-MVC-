@@ -425,12 +425,11 @@
 
                         info += `</td>`;
                         if (!model.user.isHotelUser) {
-                            info += ` <td><a class="btn btn-primary" href="/Admin/AdminHotel/CreateHotel/${model.user.id}>Make Hotel User</a></td>`;
+                            info += `<td><a class="btn btn-primary" href="/Admin/AdminHotel/CreateHotel/${model.user.id}">Make Hotel User</a></td>`;
                         } else {
-                            info += ` <td></td>`
+                            info += `<td></td>`
                         }
                         info += `</tr>`;
-
                         document.querySelector("#result").innerHTML += info;
                         let modalBtns = document.querySelectorAll(".modalBtn");
                         for (let modalBtn of modalBtns) {

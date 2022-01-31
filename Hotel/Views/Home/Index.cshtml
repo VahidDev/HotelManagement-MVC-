@@ -319,7 +319,7 @@
                                 <!-- room card -->
                                 <div class="hotel-room-card hotel-scroll-animation">
                                     <div class="hotel-cover-frame imgLoad">
-                                        <a href="~/room.html">
+                                        <a asp-controller="Room" asp-action="Reservation" asp-route-id="@room.Id">
                                             <img class="lozad" src="~/img/rooms/@room.RoomImages.FirstOrDefault().Name" alt="cover" />
                                         </a>
                                         @if (room.Popularity >= PopularityConstants.popular)
@@ -344,7 +344,7 @@
                                                 <span>@room.Size m²</span>
                                             </div>
                                         </div>
-                                        <a href="~/room.html">
+                                        <a asp-controller="Room" asp-action="Reservation" asp-route-id="@room.Id">
                                             <h3 class="hotel-mb-20">@room.Name</h3>
                                         </a>
                                         <div class="
@@ -358,7 +358,7 @@
                                             <div class="hotel-price">
                                                 @room.Price M <span> /gecə</span>
                                             </div>
-                                            <a href="~/room.html" class="hotel-btn">
+                                            <a asp-controller="Room" asp-action="Reservation" asp-route-id="@room.Id" class="hotel-btn">
                                                 <img class="lozad" src="~/img/icons/bookmark.svg"
                                                      alt="icon" />Rezerv et
                                             </a>
