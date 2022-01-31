@@ -67,8 +67,6 @@
                                         <input class="form-control" type="checkbox" asp-for="Facilities[i].Selected" />
                                         <label asp-for="Facilities[i].Selected">@Model.Facilities[i].Facility.Name</label>
                                         <input type="hidden" asp-for="Facilities[i].Facility.Id" value="@Model.Facilities[i].Facility.Id"/>
-                                        <input class="form-control" type="hidden" asp-for="Facilities[i].Facility.Id"
-                                               value="@Model.Facilities[i].Facility.Id" />
                                         <hr />
                                     }
                                     <span asp-validation-for="Facilities" class="text-danger"></span>
