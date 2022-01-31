@@ -158,8 +158,8 @@ namespace Hotel.Areas.Admin.Controllers
             user.LockoutEnabled = true;
             user.LockoutEnd = DateTimeOffset.MaxValue;
             user.IsBlocked = true;
-            await _userManager.UpdateSecurityStampAsync(user);
             await _userManager.UpdateAsync(user);
+            await _userManager.UpdateSecurityStampAsync(user);
             await _dbContext.SaveChangesAsync();
             return true;
         }

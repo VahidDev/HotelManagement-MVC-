@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Hotel.DAL;
 using Hotel.Utilities.ControllerUtilities;
 using Hotel.Utilities.ControllerUtilities.HomeUtilities;
 using Hotel.ViewModels.HomePageViewModels;
 using Hotel.ViewModels.ReservationControllerViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace Hotel.Controllers

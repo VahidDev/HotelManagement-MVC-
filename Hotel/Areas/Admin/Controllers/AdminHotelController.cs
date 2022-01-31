@@ -11,7 +11,6 @@ using Hotel.Utilities.ControllerUtilities.AdminHotelUtilities;
 using Hotel.Utilities.FileUtilities;
 using Hotel.ViewModels.AdminViewModels.AdminHotelViewModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,8 +18,8 @@ using Microsoft.EntityFrameworkCore;
 namespace Hotel.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = nameof(Constants.POCOConstants.DefaultRoleConstants.Admin) + ","
-     + nameof(Constants.POCOConstants.DefaultRoleConstants.Hotel))]
+    [Authorize(Roles = nameof(DefaultRoleConstants.Admin) + ","
+     + nameof(DefaultRoleConstants.Hotel))]
     public class AdminHotelController : Controller
     {
         private readonly AppDbContext _dbContext;
