@@ -23,12 +23,14 @@ namespace Hotel.Areas.Admin.Controllers
         private readonly AppDbContext _dbContext;
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly SignInManager<User> _signInManager;
         public UserController(AppDbContext dbContext, UserManager<User> userManager,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,SignInManager<User>signInManager)
         {
             _dbContext = dbContext;
             _userManager = userManager;
             _roleManager = roleManager;
+            _signInManager = signInManager;
         }
         public async Task<IActionResult> Index()
         {
@@ -52,10 +54,18 @@ namespace Hotel.Areas.Admin.Controllers
         }
         public async Task<JsonResult> Search(string userName)
         {
+            IdentityRole adminRole = await _roleManager.Roles
+                    .FirstOrDefaultAsync(r => r.Name == DefaultRoleConstants.Admin);
+            string adminId = (await _dbContext.UserRoles
+                .FirstOrDefaultAsync(u => u.RoleId == adminRole.Id)).UserId;
+            string currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             UserIndexViewModel model = new();
             if (String.IsNullOrEmpty(userName))
             {
-                ICollection<User> Allusers = await _userManager.Users.Where(u => !u.IsDeleted).ToListAsync();
+                
+                ICollection<User> Allusers = await _userManager.Users
+                    .Where(u => !u.IsDeleted
+                    &&u.Id!=currentUserId&&u.Id!=adminId).ToListAsync();
                 foreach (User user in Allusers)
                 {
                     model.UsersRoles.Add(new UserAndRole
@@ -67,7 +77,8 @@ namespace Hotel.Areas.Admin.Controllers
                 return Json(model);
             }
             ICollection<User> users = await _userManager.Users.Where
-                (u => !u.IsDeleted&&u.UserName.StartsWith(userName)).ToListAsync();
+                (u => !u.IsDeleted&& u.Id != currentUserId && u.Id != adminId&&
+                u.UserName.StartsWith(userName)).ToListAsync();
             foreach (User user in users)
             {
                 model.UsersRoles.Add(new UserAndRole
@@ -77,6 +88,42 @@ namespace Hotel.Areas.Admin.Controllers
                 });
             }
             return Json(model);
+        }
+        public async Task<IActionResult>ChangePassword(string id)
+        {
+            User user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == id && !u.IsDeleted);
+            if (user == null) return NotFound();
+            return View(new UserChangePasswordViewModel {Id=user.Id,});
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassword(UserChangePasswordViewModel model,string id)
+        {
+            if (model.Id != id) return BadRequest();
+            if (!ModelState.IsValid) return View(model);
+            User user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == id && !u.IsDeleted);
+            if (user == null) return NotFound();
+            PasswordHasher<User> passwordHasher = new();
+            PasswordVerificationResult hashResult= 
+                passwordHasher.VerifyHashedPassword(user, user.PasswordHash, model.NewPassword);
+            if (hashResult==PasswordVerificationResult.Success)
+            {
+                ModelState.AddModelError(nameof(UserChangePasswordViewModel.NewPassword), "" +
+                    "The new password cannot be the same as the old password!");
+                return View(model);
+            }
+            IdentityResult result = await _userManager
+                .ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+            if (!result.Succeeded)
+            {
+                foreach(IdentityError error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+                return View(model);
+            }
+            await _userManager.UpdateSecurityStampAsync(user);
+            return RedirectToAction(nameof(Index));
         }
         public async Task<IActionResult>Create()
         {

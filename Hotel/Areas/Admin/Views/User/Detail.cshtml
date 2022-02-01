@@ -183,6 +183,8 @@
                                         <td>@Model.User.Email</td>
                                         <td>
                                             <a class="btn btn-primary" asp-route-id="@Model.User.Id" asp-action="Update">Update</a>
+                                            <a class="btn btn-secondary" asp-route-id="@Model.User.Id"
+                                               asp-action="ChangePassword">Change Password</a>
                                             <!-- Button trigger delete modal -->
                                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                                 Delete

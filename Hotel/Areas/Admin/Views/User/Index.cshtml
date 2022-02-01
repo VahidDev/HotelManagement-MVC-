@@ -196,6 +196,8 @@
                                             <td>
                                                 <a class="btn btn-warning " asp-route-id="@userAndRole.User.Id" asp-action="Detail">Detail</a>
                                                 <a class="btn btn-primary" asp-route-id="@userAndRole.User.Id" asp-action="Update">Update</a>
+                                                <a class="btn btn-secondary" asp-route-id="@userAndRole.User.Id" 
+                                                   asp-action="ChangePassword">Change Password</a>
                                                 <input type="hidden" value="@userAndRole.User.Id" />
                                                 <input type="hidden" value="@userAndRole.User.UserName" />
                                                 <!--Fake Button trigger modal -->
@@ -410,9 +412,10 @@
                         }
                         info += `</select></td>`;
                         info += `
-                                            <td>
-                                                <a class="btn btn-warning"  href="/Admin/User/Detail/${model.user.id}">Detail</a>
-                                                <a class="btn btn-primary" href="/Admin/User/Update/${model.user.id}">Update</a>
+                            <td>
+                          <a class="btn btn-warning"  href="/Admin/User/Detail/${model.user.id}">Detail</a>
+                          <a class="btn btn-primary" href="/Admin/User/Update/${model.user.id}">Update</a>
+                          <a class="btn btn-secondary" href="/Admin/User/ChangePassword/${model.user.id}">Change Password</a>
                                                 <input type="hidden" value="${model.user.id}" />
                                                 <input type="hidden" value="${model.user.userName}" />
                                                 <!--Fake Button trigger modal -->
@@ -420,7 +423,7 @@
                         if (model.user.isBlocked) {
                             info += ` <button type="button" class="btn btn-dark unBlockMobalBtn"> Unblock</button>`
                         } else {
-                            info += `  <button type="button" class="btn btn-dark BlockModalBtn">Block</button>`
+                            info += ` <button type="button" class="btn btn-dark BlockModalBtn">Block</button>`
                         }
 
                         info += `</td>`;
@@ -431,6 +434,7 @@
                         }
                         info += `</tr>`;
                         document.querySelector("#result").innerHTML += info;
+                        // Adding event listeners for new tags
                         let modalBtns = document.querySelectorAll(".modalBtn");
                         for (let modalBtn of modalBtns) {
                             modalBtn.addEventListener("click", GetUserId);
