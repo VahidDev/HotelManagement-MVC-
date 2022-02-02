@@ -10,7 +10,7 @@ namespace Hotel.ViewModels.AdminViewModels.UserViewModels
         [Required(ErrorMessage ="You need to include a new password!"),DataType(DataType.Password)]
         public string NewPassword { get; set; }
         [Required(ErrorMessage ="You need to confirm the new password!"),DataType(DataType.Password),
-            Compare(nameof(NewPassword),ErrorMessage ="The old password doesn't match with the new one")]
+            Compare(nameof(NewPassword),ErrorMessage ="The passwords do not match!")]
         public string ConfirmPassword { get; set; }
     }
 }

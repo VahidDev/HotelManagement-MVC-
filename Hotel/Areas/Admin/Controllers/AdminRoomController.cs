@@ -169,7 +169,7 @@ namespace Hotel.Areas.Admin.Controllers
             foreach (FacilityCheckBox facilityCheckBox in model.Facilities)
             {
                 if (facilityCheckBox.Selected)
-                room.Facilities.Add(await _dbContext.Facilities.FindAsync(facilityCheckBox.Facility.Id));
+                room.Facilities.Add(facilityCheckBox.Facility);
             }
             if (model.MainImage != null)
             {

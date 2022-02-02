@@ -103,10 +103,9 @@ namespace Hotel.Areas.Admin.Controllers
             if (!ModelState.IsValid) return View(model);
             User user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == id && !u.IsDeleted);
             if (user == null) return NotFound();
-            PasswordHasher<User> passwordHasher = new();
-            PasswordVerificationResult hashResult= 
-                passwordHasher.VerifyHashedPassword(user, user.PasswordHash, model.NewPassword);
-            if (hashResult==PasswordVerificationResult.Success)
+            Microsoft.AspNetCore.Identity.SignInResult signInResult= await _signInManager
+                .CheckPasswordSignInAsync(user, model.NewPassword,false);
+            if (signInResult.Succeeded)
             {
                 ModelState.AddModelError(nameof(UserChangePasswordViewModel.NewPassword), "" +
                     "The new password cannot be the same as the old password!");
